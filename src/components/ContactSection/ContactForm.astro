@@ -53,7 +53,7 @@ import TitleDivider from '../shared/TitleDivider.astro';
       </h3>
 
       <p class="mt-2 font-main-body text-[13px] leading-6 text-red-800">
-        Sprawdź poniższe pola i popraw wskazane informacje.
+        Sprawdź poniższe pola i uzupełnij wymagane informacje.
       </p>
 
       <ul
@@ -69,6 +69,7 @@ import TitleDivider from '../shared/TitleDivider.astro';
         class="mb-2 block font-main-body text-[12px] font-normal uppercase tracking-[0.2em] text-[var(--brand-gold-dark)]"
       >
         Imię i nazwisko
+        <span aria-hidden="true" class="text-red-700">*</span>
       </label>
 
       <input
@@ -96,6 +97,7 @@ import TitleDivider from '../shared/TitleDivider.astro';
         class="mb-2 block font-main-body text-[12px] font-normal uppercase tracking-[0.2em] text-[var(--brand-gold-dark)]"
       >
         Adres e-mail
+        <span aria-hidden="true" class="text-red-700">*</span>
       </label>
 
       <input
@@ -123,6 +125,7 @@ import TitleDivider from '../shared/TitleDivider.astro';
         class="mb-2 block font-main-body text-[12px] font-normal uppercase tracking-[0.2em] text-[var(--brand-gold-dark)]"
       >
         Treść zapytania
+        <span aria-hidden="true" class="text-red-700">*</span>
       </label>
 
       <textarea
@@ -142,13 +145,8 @@ import TitleDivider from '../shared/TitleDivider.astro';
       ></p>
     </div>
 
-    <!-- INFORMACJA O WYMAGANYCH POLACH -->
-    <p class="pt-1 font-main-body text-[12px] leading-5 text-stone-500">
-      Wszystkie pola formularza są wymagane.
-    </p>
-
     <!-- INFORMACJA O PRYWATNOŚCI -->
-    <details class="font-main-body text-[12px] leading-5 text-stone-500">
+    <details class="pt-1 font-main-body text-[12px] leading-5 text-stone-500">
       <summary class="w-fit cursor-pointer underline underline-offset-4 hover:text-stone-700">
         Informacja o przetwarzaniu danych osobowych
       </summary>
@@ -178,6 +176,13 @@ import TitleDivider from '../shared/TitleDivider.astro';
         </p>
       </div>
     </details>
+
+    <!-- INFORMACJA O POLACH WYMAGANYCH -->
+    <p class="font-main-body text-[12px] leading-5 text-stone-500">
+      Pola oznaczone symbolem{" "}
+      <span aria-hidden="true" class="text-red-700">*</span>
+      {" "}są wymagane.
+    </p>
 
     <!-- OSTRZEŻENIE O DANYCH -->
     <p class="font-main-body text-[12px] leading-5 text-stone-500">
@@ -323,378 +328,322 @@ import TitleDivider from '../shared/TitleDivider.astro';
 </style>
 
 <script>
-  import { sendEmail } from '../../lib/mail';
 
-  const TIMEOUT = 15000;
+import { sendEmail } from '../../lib/mail';
 
-  const form = document.querySelector<HTMLFormElement>('#contact-form');
-  const section = document.querySelector<HTMLElement>(
-    '[data-contact-form-section]'
-  );
+const TIMEOUT = 15000;
 
-  // ANIMACJA SEKCJI
-  if (section) {
-    if (
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
-      !('IntersectionObserver' in window)
-    ) {
-      section.classList.add('is-visible');
-    } else {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry?.isIntersecting) {
-            section.classList.add('is-visible');
-            observer.disconnect();
-          }
-        },
-        { threshold: 0.1 }
-      );
+const form = document.querySelector<HTMLFormElement>('#contact-form');
+const section = document.querySelector<HTMLElement>('[data-contact-form-section]');
 
-      observer.observe(section);
+// Animacja sekcji
+if (section) {
+  if (
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+    !('IntersectionObserver' in window)
+  ) {
+    section.classList.add('is-visible');
+  } else {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry?.isIntersecting) {
+        section.classList.add('is-visible');
+        observer.disconnect();
+      }
+    }, { threshold: 0.1 });
+
+    observer.observe(section);
+  }
+}
+
+if (form) {
+  type Field = 'name' | 'email' | 'message';
+
+  const fields = {
+    name: form.querySelector<HTMLInputElement>('#name')!,
+    email: form.querySelector<HTMLInputElement>('#email')!,
+    message: form.querySelector<HTMLTextAreaElement>('#message')!,
+  };
+
+  const errors = {
+    name: form.querySelector<HTMLElement>('#name-error')!,
+    email: form.querySelector<HTMLElement>('#email-error')!,
+    message: form.querySelector<HTMLElement>('#message-error')!,
+  };
+
+  const summary = form.querySelector<HTMLElement>('#form-error-summary')!;
+  const errorList = form.querySelector<HTMLUListElement>('#form-error-list')!;
+  const success = form.querySelector<HTMLElement>('#form-success')!;
+  const sendError = form.querySelector<HTMLElement>('#form-send-error')!;
+
+  const button = form.querySelector<HTMLButtonElement>('#contact-submit')!;
+  const buttonLabel = form.querySelector<HTMLElement>('#contact-submit-label')!;
+  const arrow = form.querySelector<HTMLElement>('#contact-submit-arrow')!;
+
+  const order: Field[] = ['name', 'email', 'message'];
+
+  const labels: Record<Field, string> = {
+    name: 'Imię i nazwisko',
+    email: 'Adres e-mail',
+    message: 'Treść zapytania',
+  };
+
+  const messages: Record<Field, string> = {
+    name: '',
+    email: '',
+    message: '',
+  };
+
+  const visible: Record<Field, boolean> = {
+    name: false,
+    email: false,
+    message: false,
+  };
+
+  let submitted = false;
+  let isSending = false;
+
+  // Walidacja pól
+  function getError(field: Field): string {
+    const value = fields[field].value.trim();
+
+    if (field === 'name') {
+      if (!value) return 'Prosimy o podanie imienia i nazwiska.';
+      if (value.length < 2) return 'Prosimy o wpisanie co najmniej 2 znaków.';
+      if (value.length > 100) return 'Imię i nazwisko może mieć maksymalnie 100 znaków.';
     }
+
+    if (field === 'email') {
+      if (!value) return 'Prosimy o podanie adresu e-mail.';
+      if (!fields.email.validity.valid) return 'Prosimy o podanie prawidłowego adresu e-mail.';
+    }
+
+    if (field === 'message') {
+      if (!value) return 'Prosimy o wpisanie treści zapytania.';
+      if (value.length < 10) return 'Treść zapytania musi zawierać co najmniej 10 znaków.';
+      if (value.length > 5000) return 'Treść zapytania może mieć maksymalnie 5000 znaków.';
+    }
+
+    return '';
   }
 
-  if (form) {
-    type Field = 'name' | 'email' | 'message';
+  // Aktualizacja pojedynczego pola
+  function updateField(field: Field): boolean {
+    const element = fields[field];
+    const message = getError(field);
+    const show = Boolean(
+      message && (element.dataset.touched === 'true' || submitted),
+    );
 
-    const fields = {
-      name: form.querySelector<HTMLInputElement>('#name')!,
-      email: form.querySelector<HTMLInputElement>('#email')!,
-      message: form.querySelector<HTMLTextAreaElement>('#message')!,
-    };
-
-    const errors = {
-      name: form.querySelector<HTMLElement>('#name-error')!,
-      email: form.querySelector<HTMLElement>('#email-error')!,
-      message: form.querySelector<HTMLElement>('#message-error')!,
-    };
-
-    const summary = form.querySelector<HTMLElement>(
-      '#form-error-summary'
-    )!;
-
-    const errorList = form.querySelector<HTMLUListElement>(
-      '#form-error-list'
-    )!;
-
-    const success = form.querySelector<HTMLElement>('#form-success')!;
-    const sendError = form.querySelector<HTMLElement>(
-      '#form-send-error'
-    )!;
-
-    const button = form.querySelector<HTMLButtonElement>(
-      '#contact-submit'
-    )!;
-
-    const buttonLabel = form.querySelector<HTMLElement>(
-      '#contact-submit-label'
-    )!;
-
-    const arrow = form.querySelector<HTMLElement>(
-      '#contact-submit-arrow'
-    )!;
-
-    const honeypot = form.querySelector<HTMLInputElement>(
-      '#website'
-    )!;
-
-    const order: Field[] = ['name', 'email', 'message'];
-
-    const labels: Record<Field, string> = {
-      name: 'Imię i nazwisko',
-      email: 'Adres e-mail',
-      message: 'Treść zapytania',
-    };
-
-    const messages: Record<Field, string> = {
-      name: '',
-      email: '',
-      message: '',
-    };
-
-    const visible: Record<Field, boolean> = {
-      name: false,
-      email: false,
-      message: false,
-    };
-
-    let submitted = false;
-    let isSending = false;
-
-    // WALIDACJA PÓL
-    function getError(field: Field): string {
-      const value = fields[field].value.trim();
-
-      if (field === 'name') {
-        if (!value) {
-          return 'Prosimy o podanie imienia i nazwiska.';
-        }
-
-        if (value.length < 2) {
-          return 'Prosimy o wpisanie co najmniej 2 znaków.';
-        }
-
-        if (value.length > 100) {
-          return 'Imię i nazwisko może mieć maksymalnie 100 znaków.';
-        }
-      }
-
-      if (field === 'email') {
-        if (!value) {
-          return 'Prosimy o podanie adresu e-mail.';
-        }
-
-        if (!fields.email.validity.valid) {
-          return 'Prosimy o podanie prawidłowego adresu e-mail.';
-        }
-      }
-
-      if (field === 'message') {
-        if (!value) {
-          return 'Prosimy o wpisanie treści zapytania.';
-        }
-
-        if (value.length < 10) {
-          return 'Treść zapytania musi zawierać co najmniej 10 znaków.';
-        }
-
-        if (value.length > 5000) {
-          return 'Treść zapytania może mieć maksymalnie 5000 znaków.';
-        }
-      }
-
-      return '';
+    if (messages[field] === message && visible[field] === show) {
+      return false;
     }
 
-    // AKTUALIZACJA POJEDYNCZEGO POLA
-    function updateField(field: Field): void {
-      const element = fields[field];
-      const message = getError(field);
+    messages[field] = message;
+    visible[field] = show;
 
-      const show = Boolean(
-        message &&
-        (element.dataset.touched === 'true' || submitted)
+    element.setAttribute('aria-invalid', String(show));
+    element.classList.toggle('!border-red-700', show);
+    errors[field].classList.toggle('hidden', !show);
+    errors[field].textContent = show ? message : '';
+
+    return true;
+  }
+
+  // Podsumowanie błędów
+  function updateSummary(): void {
+    const fragment = document.createDocumentFragment();
+    let hasErrors = false;
+
+    for (const field of order) {
+      if (!visible[field]) continue;
+
+      hasErrors = true;
+
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+
+      link.href = `#${field}`;
+      link.dataset.field = field;
+      link.className =
+        'underline underline-offset-2 hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2';
+      link.textContent = `${labels[field]}: ${messages[field]}`;
+
+      item.append(link);
+      fragment.append(item);
+    }
+
+    errorList.replaceChildren(fragment);
+    summary.classList.toggle('hidden', !hasErrors);
+  }
+
+  // Walidacja całego formularza
+  function validate(): boolean {
+    let valid = true;
+
+    for (const field of order) {
+      if (updateField(field) && messages[field]) {
+        valid = false;
+      } else if (messages[field]) {
+        valid = false;
+      }
+    }
+
+    updateSummary();
+    return valid;
+  }
+
+  // Ukrywanie komunikatów
+  function hideMessages(): void {
+    success.classList.add('hidden');
+    sendError.classList.add('hidden');
+    sendError.textContent = '';
+  }
+
+  // Stan wysyłania
+  function setSending(sending: boolean): void {
+    isSending = sending;
+    button.disabled = sending;
+    button.setAttribute('aria-busy', String(sending));
+    buttonLabel.textContent = sending ? 'Wysyłanie...' : 'Wyślij zapytanie';
+    arrow.classList.toggle('hidden', sending);
+  }
+
+  // Limit czasu wysyłania
+  function withTimeout<T>(promise: Promise<T>): Promise<T> {
+    return new Promise((resolve, reject) => {
+      const timer = window.setTimeout(
+        () => reject(new Error('Request timed out')),
+        TIMEOUT,
       );
 
-      messages[field] = message;
-      visible[field] = show;
+      promise.then(
+        value => {
+          window.clearTimeout(timer);
+          resolve(value);
+        },
+        error => {
+          window.clearTimeout(timer);
+          reject(error);
+        },
+      );
+    });
+  }
 
-      element.setAttribute('aria-invalid', String(show));
-      element.classList.toggle('!border-red-700', show);
+  // Obsługa błędów i interakcji pól
+  for (const field of order) {
+    const element = fields[field];
 
-      errors[field].classList.toggle('hidden', !show);
-      errors[field].textContent = show ? message : '';
-    }
+    element.addEventListener('blur', () => {
+      element.dataset.touched = 'true';
 
-    // PODSUMOWANIE BŁĘDÓW
-    function updateSummary(): void {
-      const fragment = document.createDocumentFragment();
-
-      for (const field of order) {
-        if (!visible[field]) continue;
-
-        const item = document.createElement('li');
-        const link = document.createElement('a');
-
-        link.href = `#${field}`;
-        link.dataset.field = field;
-
-        link.className =
-          'underline underline-offset-2 hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2';
-
-        link.textContent = `${labels[field]}: ${messages[field]}`;
-
-        item.append(link);
-        fragment.append(item);
+      if (updateField(field) && submitted) {
+        updateSummary();
       }
+    });
 
-      errorList.replaceChildren(fragment);
-
-      const hasErrors = order.some(field => visible[field]);
-
-      summary.classList.toggle('hidden', !hasErrors);
-    }
-
-    // WALIDACJA CAŁEGO FORMULARZA
-    function validate(): boolean {
-      for (const field of order) {
-        updateField(field);
-      }
-
-      updateSummary();
-
-      return order.every(field => !messages[field]);
-    }
-
-    // UKRYWANIE KOMUNIKATÓW
-    function hideMessages(): void {
-      success.classList.add('hidden');
-      sendError.classList.add('hidden');
-      sendError.textContent = '';
-    }
-
-    // STAN WYSYŁANIA
-    function setSending(sending: boolean): void {
-      isSending = sending;
-
-      button.disabled = sending;
-      button.setAttribute('aria-busy', String(sending));
-
-      buttonLabel.textContent = sending
-        ? 'Wysyłanie...'
-        : 'Wyślij zapytanie';
-
-      arrow.classList.toggle('hidden', sending);
-    }
-
-    // LIMIT CZASU WYSYŁANIA
-    function withTimeout<T>(promise: Promise<T>): Promise<T> {
-      return new Promise((resolve, reject) => {
-        const timer = window.setTimeout(
-          () => reject(new Error('Request timed out')),
-          TIMEOUT
-        );
-
-        promise.then(
-          value => {
-            window.clearTimeout(timer);
-            resolve(value);
-          },
-          error => {
-            window.clearTimeout(timer);
-            reject(error);
-          }
-        );
-      });
-    }
-
-    // OBSŁUGA PÓL
-    for (const field of order) {
-      const element = fields[field];
-
-      element.addEventListener('blur', () => {
-        element.dataset.touched = 'true';
-
-        updateField(field);
-
-        if (submitted) {
+    const handleInput = () => {
+      if (
+        element.dataset.touched === 'true' ||
+        submitted
+      ) {
+        if (updateField(field) && submitted) {
           updateSummary();
         }
-      });
+      }
+    };
 
-      const handleInput = () => {
-        if (
-          element.dataset.touched === 'true' ||
-          submitted
-        ) {
-          updateField(field);
+    element.addEventListener('input', handleInput);
+    element.addEventListener('change', handleInput);
+  }
 
-          if (submitted) {
-            updateSummary();
-          }
-        }
-      };
+  // Obsługa kliknięć w podsumowaniu błędów
+  errorList.addEventListener('click', event => {
+    const target = event.target;
 
-      element.addEventListener('input', handleInput);
-      element.addEventListener('change', handleInput);
+    if (!(target instanceof HTMLAnchorElement)) return;
+
+    const field = target.dataset.field as Field | undefined;
+    if (!field || !order.includes(field)) return;
+
+    event.preventDefault();
+    fields[field].focus();
+    fields[field].scrollIntoView({
+      block: 'center',
+      behavior: 'smooth',
+    });
+  });
+
+  // Wysyłanie formularza
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+
+    if (isSending) return;
+
+    hideMessages();
+    submitted = true;
+
+    if (!validate()) {
+      summary.focus();
+      return;
     }
 
-    // KLIKNIĘCIA W PODSUMOWANIU BŁĘDÓW
-    errorList.addEventListener('click', event => {
-      const target = event.target;
+    setSending(true);
 
-      if (!(target instanceof HTMLAnchorElement)) return;
+    try {
+      fields.name.value = fields.name.value.trim();
+      fields.email.value = fields.email.value.trim();
+      fields.message.value = fields.message.value.trim();
 
-      const field = target.dataset.field as Field | undefined;
+      const result = await withTimeout(
+        sendEmail(new FormData(form)),
+      );
 
-      if (!field || !order.includes(field)) return;
+      if (!result.success) {
+        throw new Error(
+          result.message || 'Nie udało się wysłać wiadomości.',
+        );
+      }
 
-      event.preventDefault();
+      form.reset();
+      submitted = false;
 
-      fields[field].focus();
+      for (const field of order) {
+        delete fields[field].dataset.touched;
+        messages[field] = '';
+        visible[field] = false;
 
-      fields[field].scrollIntoView({
-        block: 'center',
+        fields[field].setAttribute('aria-invalid', 'false');
+        fields[field].classList.remove('!border-red-700');
+
+        errors[field].classList.add('hidden');
+        errors[field].textContent = '';
+      }
+
+      summary.classList.add('hidden');
+      errorList.replaceChildren();
+
+      success.classList.remove('hidden');
+      success.scrollIntoView({
+        block: 'nearest',
         behavior: 'smooth',
       });
-    });
 
-    // WYSYŁANIE FORMULARZA
-    form.addEventListener('submit', async event => {
-      event.preventDefault();
+    } catch (error) {
+      console.error('Contact form error:', error);
 
-      if (isSending) return;
-
-      hideMessages();
-      submitted = true;
-
-      // OCHRONA HONEYPOT
-      if (honeypot.value.trim()) {
-        return;
-      }
-
-      if (!validate()) {
-        summary.focus();
-        return;
-      }
-
-      setSending(true);
-
-      try {
-        fields.name.value = fields.name.value.trim();
-        fields.email.value = fields.email.value.trim();
-        fields.message.value = fields.message.value.trim();
-
-        const result = await withTimeout(
-          sendEmail(new FormData(form))
-        );
-
-        if (!result.success) {
-          throw new Error('send-failed');
-        }
-
-        // SUKCES
-        form.reset();
-        submitted = false;
-
-        for (const field of order) {
-          delete fields[field].dataset.touched;
-
-          messages[field] = '';
-          visible[field] = false;
-
-          fields[field].setAttribute('aria-invalid', 'false');
-          fields[field].classList.remove('!border-red-700');
-
-          errors[field].classList.add('hidden');
-          errors[field].textContent = '';
-        }
-
-        summary.classList.add('hidden');
-        errorList.replaceChildren();
-
-        success.classList.remove('hidden');
-
-        success.scrollIntoView({
-          block: 'nearest',
-          behavior: 'smooth',
-        });
-
-      } catch (error) {
-        console.error('Contact form error:', error);
-
-        sendError.textContent =
-          error instanceof Error &&
-          error.message === 'Request timed out'
+      sendError.textContent =
+        error instanceof Error
+          ? error.message === 'Request timed out'
             ? 'Przekroczono czas oczekiwania. Spróbuj ponownie.'
-            : 'Nie udało się wysłać wiadomości. Spróbuj ponownie później.';
+            : error.message
+          : 'Wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie później.';
 
-        sendError.classList.remove('hidden');
-        sendError.focus();
+      sendError.classList.remove('hidden');
+      sendError.focus();
 
-      } finally {
-        setSending(false);
-      }
-    });
-  }
+    } finally {
+      setSending(false);
+    }
+  });
+}
 </script>
