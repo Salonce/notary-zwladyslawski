@@ -12,7 +12,7 @@ export default defineConfig({
     ? 'https://salonce.github.io'
     : 'https://notariusz.wladyslawski.pl',
 
-  base: isDemo ? '/NAZWA-REPOZYTORIUM' : '/',
+  base: isDemo ? '/notary-zwladyslawski' : '/',
 
   vite: {
     plugins: [tailwindcss()]
