@@ -1,5 +1,29 @@
-
 @import "tailwindcss";
+
+/* =========================================
+   0. CZCIONKI ZASTĘPCZE (bez "skakania" tekstu)
+   Dopasowane wymiarami do właściwych czcionek,
+   więc po załadowaniu Merriweather/Inter tekst
+   praktycznie nie zmienia rozmiaru ani wysokości linii.
+   ========================================= */
+
+@font-face {
+  font-family: "Merriweather Fallback";
+  src: local("Georgia");
+  size-adjust: 102%;
+  ascent-override: 96.5%;
+  descent-override: 26.8%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  size-adjust: 107.64%;
+  ascent-override: 89.79%;
+  descent-override: 22.36%;
+  line-gap-override: 0%;
+}
 
 /* =========================================
    1. BREAKPOINTS TAILWIND
@@ -28,13 +52,13 @@
   --brand-gold-motto: #a9822f;
   --button-surface: #f7f3eb;
 
-  /* Typografia */
-  --font-top-bar: "Merriweather", Georgia, serif;
-  --font-top-navbar: "Merriweather", Georgia, serif;
-  --font-main-heading: "Merriweather", Georgia, serif;
-  --font-main-body: "Inter", Arial, sans-serif;
-  --font-motto: "Cinzel Decorative", Georgia, serif;
-  --font-notarial-services: "Inter", Arial, sans-serif;
+  /* Typografia (z dopasowanymi czcionkami zastępczymi) */
+  --font-top-bar: "Merriweather", "Merriweather Fallback", Georgia, serif;
+  --font-top-navbar: "Merriweather", "Merriweather Fallback", Georgia, serif;
+  --font-main-heading: "Merriweather", "Merriweather Fallback", Georgia, serif;
+  --font-main-body: "Inter", "Inter Fallback", Arial, sans-serif;
+  --font-motto: "Georgia", Georgia, serif;
+  --font-notarial-services: "Inter", "Inter Fallback", Arial, sans-serif;
   --font-roman-numerals: "Cinzel", Georgia, serif;
 
   /* Grubość fontów */
@@ -123,7 +147,8 @@ body {
 
 .font-motto {
   font-family: var(--font-motto);
-  font-weight: var(--weight-regular);
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 .font-notarial-services-list-main-element {
