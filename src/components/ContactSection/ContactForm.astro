@@ -145,36 +145,37 @@ import TitleDivider from '../shared/TitleDivider.astro';
       ></p>
     </div>
 
-    <!-- ZGODA -->
-    <div class="pt-1">
-      <label
-        for="consent"
-        class="flex cursor-pointer items-start gap-3"
-      >
-        <input
-          id="consent"
-          name="consent"
-          type="checkbox"
-          required
-          aria-describedby="consent-error"
-          class="mt-1 h-4 w-4 shrink-0 cursor-pointer accent-[var(--brand-gold-dark)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand-gold-dark)]"
-        />
+    <!-- INFORMACJA O PRYWATNOŚCI -->
+    <details class="pt-1 font-main-body text-[12px] leading-5 text-stone-500">
+      <summary class="w-fit cursor-pointer underline underline-offset-4 hover:text-stone-700">
+        Informacja o przetwarzaniu danych osobowych
+      </summary>
 
-        <span
-          class="font-main-body text-[13px] font-normal leading-6 text-stone-600 md:text-[14px]"
-        >
-          Wyrażam zgodę na przetwarzanie moich danych osobowych
-          w celu przetworzenia zapytania. Administratorem danych
-          osobowych jest Kancelaria Notarialna Zbigniewa Władysławskiego.
-          <span aria-hidden="true" class="text-red-700">*</span>
-        </span>
-      </label>
+      <div class="mt-3 space-y-2">
+        <p>
+          Administratorem danych jest Kancelaria Notarialna
+          Zbigniewa Władysławskiego, [adres kancelarii].
+          Kontakt: [adres e-mail].
+        </p>
 
-      <p
-        id="consent-error"
-        class="field-error mt-2 hidden font-main-body text-[13px] leading-5 text-red-700"
-      ></p>
-    </div>
+        <p>
+          Dane będą przetwarzane w celu obsługi zapytania na podstawie
+          [właściwa podstawa prawna z art. 6 RODO].
+        </p>
+
+        <p>
+          Dane będą przechowywane przez [okres przechowywania].
+          Odbiorcami danych mogą być [rzeczywiści odbiorcy danych].
+        </p>
+
+        <p>
+          Podanie danych jest dobrowolne, ale niezbędne do obsługi
+          zapytania. Przysługuje Państwu prawo dostępu do danych,
+          ich sprostowania, usunięcia lub ograniczenia przetwarzania,
+          a także wniesienia skargi do Prezesa UODO.
+        </p>
+      </div>
+    </details>
 
     <!-- INFORMACJA O POLACH WYMAGANYCH -->
     <p class="font-main-body text-[12px] leading-5 text-stone-500">
@@ -325,7 +326,6 @@ import TitleDivider from '../shared/TitleDivider.astro';
   }
 </style>
 
-
 <script>
   import { sendEmail } from '../../lib/mail';
 
@@ -369,8 +369,6 @@ import TitleDivider from '../shared/TitleDivider.astro';
     const emailInput = contactForm.querySelector<HTMLInputElement>('#email')!;
     const messageInput =
       contactForm.querySelector<HTMLTextAreaElement>('#message')!;
-    const consentInput =
-      contactForm.querySelector<HTMLInputElement>('#consent')!;
 
     const errorSummary = contactForm.querySelector<HTMLElement>(
       '#form-error-summary',
@@ -396,7 +394,7 @@ import TitleDivider from '../shared/TitleDivider.astro';
       '#contact-submit-arrow',
     )!;
 
-    type FieldName = 'name' | 'email' | 'message' | 'consent';
+    type FieldName = 'name' | 'email' | 'message';
 
     const fields: Record<
       FieldName,
@@ -405,7 +403,6 @@ import TitleDivider from '../shared/TitleDivider.astro';
       name: nameInput,
       email: emailInput,
       message: messageInput,
-      consent: consentInput,
     };
 
     let submitted = false;
@@ -415,7 +412,6 @@ import TitleDivider from '../shared/TitleDivider.astro';
       name: '',
       email: '',
       message: '',
-      consent: '',
     };
 
     function getFieldError(field: FieldName): string {
@@ -461,10 +457,6 @@ import TitleDivider from '../shared/TitleDivider.astro';
         if (value.length > 5000) {
           return 'Treść zapytania może mieć maksymalnie 5000 znaków.';
         }
-      }
-
-      if (field === 'consent' && !consentInput.checked) {
-        return 'Zaznaczenie zgody jest wymagane.';
       }
 
       return '';
@@ -514,14 +506,12 @@ import TitleDivider from '../shared/TitleDivider.astro';
         'name',
         'email',
         'message',
-        'consent',
       ];
 
       const labels: Record<FieldName, string> = {
         name: 'Imię i nazwisko',
         email: 'Adres e-mail',
         message: 'Treść zapytania',
-        consent: 'Zgoda',
       };
 
       for (const field of fieldOrder) {
@@ -561,7 +551,6 @@ import TitleDivider from '../shared/TitleDivider.astro';
         'name',
         'email',
         'message',
-        'consent',
       ];
 
       let isValid = true;
