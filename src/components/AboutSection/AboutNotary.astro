@@ -1,0 +1,166 @@
+
+---
+import TitleDivider from '../shared/TitleDivider.astro';
+---
+
+<div class="group content-column h-full" data-notary-section>
+  <!-- HEADER -->
+  <div class="text-center">
+    <h2 class="notariusz-title mt-2 font-main-heading text-[34px] font-normal tracking-wide text-black md:text-[40px]">
+      O notariuszu
+    </h2>
+
+    <div class="notariusz-divider">
+      <TitleDivider />
+    </div>
+  </div>
+
+  <!-- BIOGRAPHY -->
+  <div
+    class="mx-auto mt-10 w-full max-w-3xl text-justify font-main-body text-[17px] font-normal leading-[1.85] text-stone-700 md:mt-11 md:text-[18px] md:leading-[1.9]"
+  >
+    <p class="notariusz-paragraph">
+      Zbigniew Władysławski ukończył pięcioletnie studia magisterskie na Wydziale Prawa i
+      Administracji Uniwersytetu Warszawskiego. Po studiach przygotowywał się do zawodu
+      prokuratora, a następnie złożył egzamin prokuratorski z wynikiem bardzo dobrym. Z czasem
+      jego zainteresowania skierowały się jednak ku prawu cywilnemu i czynnościom notarialnym,
+      dlatego zdecydował się na zmianę ścieżki zawodowej i przystąpił do egzaminu notarialnego.
+    </p>
+
+    <p class="notariusz-paragraph mt-8">
+      Po zdanym egzaminie notarialnym i odbyciu wymaganej asesury został powołany na
+      stanowisko notariusza. Własną kancelarię otworzył 18 sierpnia 2011 roku w Olsztynie. Teraz, jako
+      notariusz, wykorzystuje nabyte wcześniej umiejętności, a jego klienci cenią go za precyzję,
+      rzetelność i szeroką wiedzę z zakresu różnych dziedzin prawa. On sam zaś odnajduje
+      satysfakcję, pomagając ludziom w kluczowych sprawach ich życia.
+    </p>
+  </div>
+</div>
+
+<style>
+  /* =========================================
+     TYTUŁ
+     ========================================= */
+
+  .notariusz-title {
+    opacity: 0;
+    transform: translateY(-10px);
+
+    transition:
+      opacity 700ms ease-out,
+      transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* =========================================
+     DIVIDER
+     ========================================= */
+
+  .notariusz-divider {
+    opacity: 0;
+    transform: translateY(-6px) scaleX(0.94);
+    transform-origin: center;
+
+    transition:
+      opacity 600ms ease-out 180ms,
+      transform 800ms cubic-bezier(0.22, 1, 0.36, 1) 180ms;
+  }
+
+  /* =========================================
+     TEKST
+     ========================================= */
+
+  .notariusz-paragraph {
+    opacity: 0;
+    transform: translateY(-6px);
+
+    transition:
+      opacity 600ms ease-out,
+      transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* =========================================
+     KOLEJNOŚĆ POJAWIANIA
+     ========================================= */
+
+  .notariusz-paragraph:nth-child(1) {
+    transition-delay: 120ms;
+  }
+
+  .notariusz-paragraph:nth-child(2) {
+    transition-delay: 230ms;
+  }
+
+  /* =========================================
+     STAN AKTYWNY
+     ========================================= */
+
+  [data-notary-section].is-visible .notariusz-title {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  [data-notary-section].is-visible .notariusz-divider {
+    opacity: 1;
+    transform: translateY(0) scaleX(1);
+  }
+
+  [data-notary-section].is-visible .notariusz-paragraph {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* =========================================
+     REDUKCJA RUCHU
+     ========================================= */
+
+  @media (prefers-reduced-motion: reduce) {
+    .notariusz-title,
+    .notariusz-divider,
+    .notariusz-paragraph {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const sections = document.querySelectorAll<HTMLElement>(
+    '[data-notary-section]'
+  );
+
+  const prefersReducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  ).matches;
+
+  if (prefersReducedMotion) {
+    sections.forEach((section) => {
+      section.classList.add('is-visible');
+    });
+  } else {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          const section = entry.target as HTMLElement;
+
+          requestAnimationFrame(() => {
+            section.classList.add('is-visible');
+          });
+
+          observer.unobserve(section);
+        });
+      },
+      {
+        threshold: 0.15,
+      }
+    );
+
+    sections.forEach((section) => {
+      observer.observe(section);
+    });
+  }
+</script>

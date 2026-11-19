@@ -1,0 +1,307 @@
+
+---
+/* TopBar.astro */
+---
+
+<style>
+  /* =========================================
+     GÓRNY PASEK KANCELARII NOTARIALNEJ
+     KARMAZYN + KOŚĆ SŁONIOWA + ZŁOTO
+     ========================================= */
+
+  header.header-kancelaria {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    background-color: var(--brand-burgundy-soft) !important;
+
+    border-bottom: 1px solid
+      rgba(var(--brand-gold-rgb), 0.5) !important;
+  }
+
+  /* WSZYSTKIE TEKSTY */
+  header.header-kancelaria span,
+  header.header-kancelaria a {
+    color: #f7f3eb !important;
+  }
+
+  /* IKONY */
+  header.header-kancelaria i {
+    color: var(--brand-gold) !important;
+  }
+
+  /* TELEFON I E-MAIL */
+  header.header-kancelaria a {
+    text-decoration: none;
+    transition: color 200ms ease;
+  }
+
+  header.header-kancelaria a:hover,
+  header.header-kancelaria a:hover span {
+    color: #ffffff !important;
+  }
+
+  header.header-kancelaria .header-ornament {
+    border-color: rgba(var(--brand-gold-rgb), 0.16);
+  }
+
+  /* OSTROŚĆ TEKSTU */
+  header.header-kancelaria span,
+  header.header-kancelaria a,
+  header.header-kancelaria i {
+    text-shadow: none !important;
+  }
+
+  /* INTERAKCJA */
+  header.header-kancelaria a:focus-visible {
+    outline: 2px solid var(--brand-gold);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  /* MOBILE */
+  @media (max-width: 767px) {
+    header.header-kancelaria {
+      border-bottom-width: 1px;
+    }
+  }
+
+  /* OGRANICZENIE ANIMACJI */
+  @media (prefers-reduced-motion: reduce) {
+    header.header-kancelaria a {
+      transition: none;
+    }
+  }
+</style>
+
+<header
+  class="header-kancelaria relative
+         h-[31px] max-h-[31px]
+         w-full
+         overflow-hidden
+         border-b border-[var(--brand-gold)]/40
+         bg-[var(--brand-burgundy-soft)]
+         [@media(min-width:1024px)_and_(min-height:900px)]:h-[38px]
+         [@media(min-width:1024px)_and_(min-height:900px)]:max-h-[38px]"
+>
+  <!-- SUBTELNE ORNAMENTY KONTUROWE -->
+  <div class="header-ornament pointer-events-none absolute -left-24 -top-28 h-[240px] w-[240px] rounded-full border" aria-hidden="true"></div>
+  <div class="header-ornament pointer-events-none absolute -left-12 -top-16 h-[170px] w-[170px] rounded-full border" aria-hidden="true"></div>
+  <div class="header-ornament pointer-events-none absolute -right-24 -bottom-28 h-[240px] w-[240px] rounded-full border" aria-hidden="true"></div>
+  <div class="header-ornament pointer-events-none absolute -right-12 -bottom-16 h-[170px] w-[170px] rounded-full border" aria-hidden="true"></div>
+
+  <!-- LEKKI WZÓR GEOMETRYCZNY -->
+  <div class="pointer-events-none absolute inset-0 opacity-20" aria-hidden="true">
+    <div class="absolute inset-0 bg-[linear-gradient(135deg,transparent_0%,transparent_48%,rgba(var(--brand-gold-rgb),0.07)_49%,transparent_50%,transparent_100%)]"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(45deg,transparent_0%,transparent_48%,rgba(var(--brand-gold-rgb),0.045)_49%,transparent_50%,transparent_100%)]"></div>
+  </div>
+
+  <!-- TREŚĆ -->
+  <div
+    class="relative z-10
+           mx-auto flex h-[30px] max-h-[30px]
+           max-w-7xl
+           items-center justify-between
+           overflow-hidden
+           px-3
+           max-[359px]:px-2
+           [@media(min-width:1024px)_and_(min-height:900px)]:h-[37px]
+           [@media(min-width:1024px)_and_(min-height:900px)]:max-h-[37px]"
+  >
+
+    <!-- WERSJA MOBILNA: DO 660 PX -->
+    <div
+      class="flex h-full w-full
+             items-center
+             justify-between
+             gap-3
+             max-[359px]:gap-1.5
+             min-[661px]:hidden"
+    >
+      <!-- ADRES -->
+      <div
+        class="flex min-w-0 flex-1
+               items-center gap-2
+               max-[359px]:gap-1"
+      >
+        <i
+          class="fa-solid fa-house
+                 hidden
+                 shrink-0
+                 text-[11px]
+                 text-[var(--brand-gold)]"
+          aria-hidden="true"
+        ></i>
+
+        <!-- ADRES PONIŻEJ 360 PX -->
+        <span
+          class="min-w-0 truncate
+                 text-left
+                 font-top-bar
+                 text-[11px]
+                 font-normal
+                 leading-none
+                 tracking-normal
+                 text-[#f7f3eb]
+                 min-[360px]:hidden"
+        >
+          Olsztyn, Dąbrowszczaków 21 lok.3
+        </span>
+
+        <!-- ADRES OD 360 PX -->
+        <span
+          class="hidden min-w-0 truncate
+                 text-left
+                 font-top-bar
+                 text-[11px]
+                 font-normal
+                 leading-none
+                 tracking-normal
+                 text-[#f7f3eb]
+                 min-[360px]:inline"
+        >
+          Olsztyn, ul. Dąbrowszczaków 21 lok. 3
+        </span>
+      </div>
+
+      <!-- TELEFON -->
+      <div
+        class="flex shrink-0
+               items-center gap-1.5
+               max-[359px]:gap-1
+               whitespace-nowrap
+               font-top-bar
+               text-[11px]
+               font-normal
+               leading-none
+               tracking-normal
+               text-[#f7f3eb]"
+      >
+        <i
+          class="fa-solid fa-phone
+                 text-[11px]
+                 text-[var(--brand-gold)]"
+          aria-hidden="true"
+        ></i>
+
+        <span>89 527 38 39</span>
+      </div>
+    </div>
+
+    <!-- WERSJA DESKTOPOWA: OD 661 PX -->
+    <div
+      class="hidden h-full w-full
+             items-center
+             justify-between
+             min-[661px]:flex"
+    >
+      <!-- ADRES: 661-1023 PX -->
+      <div
+        class="hidden min-[661px]:flex lg:hidden
+               items-center gap-2"
+      >
+        <i
+          class="fa-solid fa-house
+                 text-[11px]
+                 text-[var(--brand-gold)]"
+          aria-hidden="true"
+        ></i>
+
+        <span
+          class="whitespace-nowrap
+                 font-top-bar
+                 text-[12px]
+                 font-normal
+                 leading-none
+                 tracking-normal
+                 text-[#f7f3eb]"
+        >
+          Olsztyn, ul. Dąbrowszczaków 21 lok. 3
+        </span>
+      </div>
+
+      <!-- ADRES: OD 1024 PX -->
+      <div
+        class="hidden lg:flex
+               items-center gap-2
+               [@media(min-width:1024px)_and_(min-height:900px)]:gap-3"
+      >
+        <i
+          class="fa-solid fa-house
+                 text-[11px]
+                 text-[var(--brand-gold)]
+                 [@media(min-width:1024px)_and_(min-height:900px)]:text-[14px]"
+          aria-hidden="true"
+        ></i>
+
+        <span
+          class="whitespace-nowrap
+                 font-top-bar
+                 text-[12px]
+                 font-normal
+                 leading-none
+                 tracking-normal
+                 text-[#f7f3eb]
+                 [@media(min-width:1024px)_and_(min-height:900px)]:text-[14px]"
+        >
+          10-540 Olsztyn, ul. Dąbrowszczaków 21 lok. 3
+        </span>
+      </div>
+
+      <!-- TELEFON I E-MAIL -->
+      <div
+        class="flex items-center gap-5
+               [@media(min-width:1024px)_and_(min-height:900px)]:gap-8"
+      >
+        <!-- TELEFON -->
+        <div
+          class="flex items-center gap-2
+                 whitespace-nowrap
+                 font-top-bar
+                 text-[12px]
+                 font-normal
+                 leading-none
+                 tracking-normal
+                 text-[#f7f3eb]
+                 [@media(min-width:1024px)_and_(min-height:900px)]:text-[14px]
+                 [@media(min-width:1024px)_and_(min-height:900px)]:gap-3"
+        >
+          <i
+            class="fa-solid fa-phone
+                   text-[11px]
+                   text-[var(--brand-gold)]
+                   [@media(min-width:1024px)_and_(min-height:900px)]:text-[14px]"
+            aria-hidden="true"
+          ></i>
+
+          <span>89 527 38 39</span>
+        </div>
+
+        <!-- E-MAIL -->
+        <div
+          class="flex items-center gap-2
+                 whitespace-nowrap
+                 font-top-bar
+                 text-[12px]
+                 font-normal
+                 leading-none
+                 tracking-normal
+                 text-[#f7f3eb]
+                 [@media(min-width:1024px)_and_(min-height:900px)]:text-[14px]
+                 [@media(min-width:1024px)_and_(min-height:900px)]:gap-3"
+        >
+          <i
+            class="fa-solid fa-envelope
+                   text-[11px]
+                   text-[var(--brand-gold)]
+                   [@media(min-width:1024px)_and_(min-height:900px)]:text-[14px]"
+            aria-hidden="true"
+          ></i>
+
+          <span>notariusz@wladyslawski.pl</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

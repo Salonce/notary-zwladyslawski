@@ -1,0 +1,318 @@
+
+---
+import TitleDivider from '../shared/TitleDivider.astro';
+---
+
+<section class="contact-info" data-contact-info-section>
+  <!-- TYTUŁ -->
+  <div class="text-center">
+    <h2
+      class="contact-info-title mt-2 font-main-heading text-[34px] tracking-wide text-black md:text-[40px]"
+    >
+      Dane teleadresowe
+    </h2>
+
+    <div class="contact-info-divider">
+      <TitleDivider />
+    </div>
+  </div>
+
+  <!-- TREŚĆ -->
+  <div
+    class="contact-info-content mx-auto mt-8 max-w-xl space-y-4 font-main-body text-[12px] leading-[1.65] text-stone-600 xxxs:space-y-5 xxxs:text-[14px] xxxs:leading-[1.7] sm:mt-10 sm:space-y-6 sm:text-[16px] md:mt-11 md:space-y-7 md:text-[18px] md:leading-[1.9]"
+  >
+    <!-- KANCELARIA -->
+    <div>
+      <p
+        class="font-main-body text-[12px] font-semibold leading-[1.55] text-stone-800 xxxs:text-[15px] xxxs:leading-[1.65] sm:text-[16px] md:text-[18px]"
+      >
+        Kancelaria Notarialna Zbigniew Władysławski Notariusz
+      </p>
+
+      <p
+        class="mt-1 font-main-body text-[10px] leading-[1.5] text-stone-500 xxxs:text-[13px] xxxs:leading-5 sm:text-[14px] md:text-[15px]"
+      >
+        NIP 7393296744, REGON 281094049
+      </p>
+    </div>
+
+    <!-- DANE KONTAKTOWE -->
+    <div class="space-y-3 xxxs:space-y-4 sm:space-y-5">
+      <!-- TELEFON -->
+      <div
+        class="flex items-center gap-2 rounded-2xl border border-[#D2C3A8] bg-[#F7F3EB]/90 px-1.5 py-1.5 xxxs:gap-3 xxxs:px-3 xxxs:py-3 sm:gap-5 sm:px-5 sm:py-4"
+      >
+        <div
+          class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-[var(--brand-gold)]/65 bg-[#EFE6D6] text-[var(--brand-gold-dark)] xxxs:h-10 xxxs:w-10 sm:h-12 sm:w-12"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-4 w-4 xxxs:h-6 xxxs:w-6 sm:h-7 sm:w-7"
+            aria-hidden="true"
+          >
+            <path
+              d="M5.5 3.5
+                 h2.1
+                 c.7 0 1.3.45 1.52 1.11
+                 l.75 2.25
+                 c.17.51.04 1.08-.34 1.46
+                 L8.1 9.75
+                 a15.7 15.7 0 0 0 6.15 6.15
+                 l1.43-1.43
+                 c.38-.38.95-.51 1.46-.34
+                 l2.25.75
+                 c.66.22 1.11.82 1.11 1.52
+                 v2.1
+                 c0 .83-.67 1.5-1.5 1.5
+                 C10.49 20 4 13.51 4 5
+                 c0-.83.67-1.5 1.5-1.5Z"
+            />
+          </svg>
+        </div>
+
+        <div class="min-w-0">
+          <span
+            class="mb-0.5 block font-main-body text-[9px] uppercase tracking-[0.1em] text-[var(--brand-gold-dark)] xxxs:mb-1 xxxs:text-[12px] xxxs:tracking-[0.15em] sm:tracking-[0.2em]"
+          >
+            Telefon
+          </span>
+
+          <a
+            href="tel:+48895273839"
+            class="phone font-main-body text-[13px] leading-[1.5] tracking-wide text-stone-700 hover:text-[var(--brand-burgundy)] xxxs:text-[16px] xxxs:leading-[1.7] md:text-[18px]"
+          >
+            89 527 38 39
+          </a>
+        </div>
+      </div>
+
+      <!-- E-MAIL -->
+      <div
+        class="flex items-center gap-2 rounded-2xl border border-[#D2C3A8] bg-[#F7F3EB]/90 px-1.5 py-1.5 xxxs:gap-3 xxxs:px-3 xxxs:py-3 sm:gap-5 sm:px-5 sm:py-4"
+      >
+        <div
+          class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-[var(--brand-gold)]/65 bg-[#EFE6D6] text-[var(--brand-gold-dark)] xxxs:h-10 xxxs:w-10 sm:h-12 sm:w-12"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-4 w-4 xxxs:h-6 xxxs:w-6 sm:h-7 sm:w-7"
+            aria-hidden="true"
+          >
+            <rect x="3" y="5" width="18" height="14" rx="2" />
+            <path d="m4 7 8 6 8-6" />
+          </svg>
+        </div>
+
+        <div class="min-w-0">
+          <span
+            class="mb-0.5 block font-main-body text-[9px] uppercase tracking-[0.1em] text-[var(--brand-gold-dark)] xxxs:mb-1 xxxs:text-[12px] xxxs:tracking-[0.15em] sm:tracking-[0.2em]"
+          >
+            E-mail
+          </span>
+
+          <a
+            href="mailto:notariusz@wladyslawski.pl"
+            class="break-words font-main-body text-[13px] leading-[1.5] text-stone-700 hover:text-[var(--brand-burgundy)] xxxs:text-[16px] xxxs:leading-[1.7] md:text-[18px]"
+          >
+            notariusz@wladyslawski.pl
+          </a>
+        </div>
+      </div>
+
+      <!-- ADRES -->
+      <div
+        class="flex items-center gap-2 rounded-2xl border border-[#D2C3A8] bg-[#F7F3EB]/90 px-1.5 py-1.5 xxxs:gap-3 xxxs:px-3 xxxs:py-3 sm:gap-5 sm:px-5 sm:py-4"
+      >
+        <div
+          class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-[var(--brand-gold)]/65 bg-[#EFE6D6] text-[var(--brand-gold-dark)] xxxs:h-10 xxxs:w-10 sm:h-12 sm:w-12"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-4 w-4 xxxs:h-6 xxxs:w-6 sm:h-7 sm:w-7"
+            aria-hidden="true"
+          >
+            <path
+              d="M20 10.5
+                 c0 5.5-8 10-8 10s-8-4.5-8-10
+                 a8 8 0 1 1 16 0Z"
+            />
+            <circle cx="12" cy="10.5" r="2.5" />
+          </svg>
+        </div>
+
+        <div class="min-w-0 flex-1">
+          <span
+            class="mb-0.5 block font-main-body text-[9px] uppercase tracking-[0.1em] text-[var(--brand-gold-dark)] xxxs:mb-1 xxxs:text-[12px] xxxs:tracking-[0.15em] sm:tracking-[0.2em]"
+          >
+            Adres kancelarii
+          </span>
+
+          <p
+            class="font-main-body text-[13px] leading-[1.5] tracking-normal text-stone-700 xxxs:text-[16px] xxxs:leading-[1.7] md:text-[18px]"
+          >
+            ul. Dąbrowszczaków 21 lok. 3
+            <br />
+            10-540 Olsztyn
+          </p>
+        </div>
+      </div>
+
+      <!-- GODZINY OTWARCIA -->
+      <div
+        class="flex items-center gap-2 rounded-2xl border border-[#D2C3A8] bg-[#F7F3EB]/90 px-1.5 py-1.5 xxxs:gap-3 xxxs:px-3 xxxs:py-3 sm:gap-5 sm:px-5 sm:py-4"
+      >
+        <div
+          class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-[var(--brand-gold)]/65 bg-[#EFE6D6] text-[var(--brand-gold-dark)] xxxs:h-10 xxxs:w-10 sm:h-12 sm:w-12"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-4 w-4 xxxs:h-6 xxxs:w-6 sm:h-7 sm:w-7"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="8.5" />
+            <path d="M12 7.5v5l3 2" />
+          </svg>
+        </div>
+
+        <div class="w-full min-w-0">
+          <span
+            class="mb-0.5 block font-main-body text-[9px] uppercase tracking-[0.1em] text-[var(--brand-gold-dark)] xxxs:mb-1 xxxs:text-[12px] xxxs:tracking-[0.15em] sm:tracking-[0.2em]"
+          >
+            Godziny otwarcia
+          </span>
+
+          <div
+            class="flex items-center justify-between gap-2 font-main-body text-[13px] xxxs:gap-3 xxxs:text-[16px] md:text-[18px]"
+          >
+            <span class="text-stone-600">
+              Pon - Pt
+            </span>
+
+            <span
+              class="font-main-body font-medium tracking-wide text-stone-800"
+            >
+              <b>08:00 - 16:00</b>
+            </span>
+          </div>
+
+          <p
+            class="mt-2 border-t border-stone-200 pt-2 font-main-body text-[8px] leading-[1.4] text-stone-500 xxxs:mt-3 xxxs:pt-3 xxxs:text-[11px] xxxs:leading-[1.6] sm:text-[12px] md:text-[13px]"
+          >
+            Inne dni i godziny dokonania czynności notarialnych -
+            po uzgodnieniu z Klientem.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-info-title {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 800ms ease,
+      transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .contact-info-divider {
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition:
+      opacity 500ms ease 250ms,
+      transform 900ms cubic-bezier(0.22, 1, 0.36, 1) 250ms;
+  }
+
+  .contact-info-content {
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity 600ms ease,
+      transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: 140ms;
+  }
+
+  .contact-info.is-visible .contact-info-title {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .contact-info.is-visible .contact-info-divider {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  .contact-info.is-visible .contact-info-content {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contact-info-title,
+    .contact-info-divider,
+    .contact-info-content {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const contactInfoSection = document.querySelector(
+    '[data-contact-info-section]',
+  );
+
+  if (contactInfoSection) {
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    );
+
+    if (prefersReducedMotion.matches) {
+      contactInfoSection.classList.add('is-visible');
+    } else {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) return;
+
+          requestAnimationFrame(() => {
+            contactInfoSection.classList.add('is-visible');
+          });
+
+          observer.disconnect();
+        },
+        {
+          threshold: 0.15,
+        },
+      );
+
+      observer.observe(contactInfoSection);
+    }
+  }
+</script>

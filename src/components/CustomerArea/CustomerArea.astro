@@ -1,0 +1,72 @@
+
+---
+import BeforeVisit from './BeforeVisit.astro';
+import Documents from './Documents.astro';
+---
+
+<section class="customer-area scroll-mt-20" id="strefa-klienta">
+
+  <div class="customer-area__container">
+
+    <div class="customer-area__grid">
+
+      <!-- LEWA KOLUMNA -->
+      <div class="customer-area__left">
+        <BeforeVisit />
+      </div>
+
+      <!-- PRAWA KOLUMNA -->
+      <div class="customer-area__right">
+        <Documents />
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<style>
+  .customer-area {
+    padding: 0 24px;
+    color: #20201e;
+  }
+
+  .customer-area__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .customer-area__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 176px;
+    align-items: start;
+  }
+
+  .customer-area__left,
+  .customer-area__right {
+    min-width: 0;
+  }
+
+  .customer-area__right {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+  }
+
+  @media (max-width: 1100px) {
+    .customer-area {
+      padding: 0 20px;
+    }
+
+    .customer-area__grid {
+      grid-template-columns: 1fr;
+      gap: var(--section-gap);
+    }
+
+    .customer-area__right {
+      gap: 60px;
+    }
+  }
+</style>

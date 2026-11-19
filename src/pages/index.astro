@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TopBar from '../components/TopBar.astro';
+import HeroSection from '../components/HeroSection.astro';
+import TopNavbar from '../components/TopNavbar.astro';
+import LatinMotto from '../components/LatinMotto.astro';
+import SectionDivider from '../components/shared/SectionDivider.astro';
+import Services from '../components/Services.astro';
+import Fees from '../components/Fees.astro';
+import PageFooter from '../components/PageFooter.astro';
+import FixedFooter from '../components/FixedFooter.astro';
+import AboutSection from '../components/AboutSection/AboutSection.astro';
+import Contact from '../components/ContactSection/Contact.astro';
+import CustomerArea from '../components/CustomerArea/CustomerArea.astro';
+---
+
+<Layout>
+  
+  <TopBar />
+  <HeroSection />
+  <TopNavbar />
+  <LatinMotto />
+  <AboutSection />
+
+  <SectionDivider />
+  <Services />
+
+  <SectionDivider />
+  <Fees />
+
+  <SectionDivider />
+  <CustomerArea />
+
+  <SectionDivider />
+  <Contact />
+
+  <SectionDivider />
+  <PageFooter />
+
+  <FixedFooter />
+</Layout>

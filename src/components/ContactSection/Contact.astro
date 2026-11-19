@@ -1,0 +1,23 @@
+
+---
+import ContactInfo from './ContactInfo.astro';
+import ContactForm from './ContactForm.astro';
+---
+
+<section id="kontakt" class="contact scroll-mt-20">
+  <div class="mx-auto max-w-6xl px-6 lg:px-8">
+    <div
+      class="grid grid-cols-1 items-start gap-y-16 min-[768px]:gap-y-20 min-[1101px]:grid-cols-2 min-[1101px]:gap-x-[176px] min-[1101px]:gap-y-0"
+    >
+      <!-- LEFT COLUMN -->
+      <div>
+        <ContactInfo />
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div>
+        <ContactForm />
+      </div>
+    </div>
+  </div>
+</section>

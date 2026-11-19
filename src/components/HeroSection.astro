@@ -1,0 +1,481 @@
+
+---
+import desktopImage from '../assets/biurowiec1.jpg';
+import mobileImage from '../assets/biurowiec1-mobile.webp';
+
+const bannerParts = [
+  'Kancelaria Notarialna',
+  'Zbigniew Władysławski',
+  'Notariusz',
+];
+---
+
+<section id="home" class="hero">
+  <!-- TEXT -->
+  <div class="hero-text">
+    <div class="hero-line" aria-hidden="true"></div>
+
+    <div class="hero-copy">
+      <p class="hero-subtitle hero-reveal hero-reveal-2">
+        {bannerParts[0]}
+      </p>
+
+      <h1
+        class="hero-name hero-reveal hero-reveal-1"
+        aria-label="Zbigniew Władysławski"
+      >
+        {bannerParts[1]}
+      </h1>
+
+      <p class="hero-role hero-reveal hero-reveal-3">
+        {bannerParts[2]}
+      </p>
+    </div>
+  </div>
+
+    <!-- IMAGE -->
+  <div class="hero-media">
+    <picture>
+      <source
+        media="(max-width: 900px)"
+        srcset={mobileImage.src}
+        type="image/webp"
+      />
+
+      <img
+        class="hero-image"
+        src={desktopImage.src}
+        alt="Biurowiec, w którym mieści się kancelaria"
+        width="1600"
+        height="900"
+        fetchpriority="high"
+      />
+    </picture>
+  </div>
+</section>
+
+<style>
+  /* =========================================
+     VARIABLES
+     ========================================= */
+
+  .hero {
+    --hero-bg: #f6f1e9;
+    --hero-desktop-height: clamp(380px, 34vw, 560px);
+  }
+
+  /* =========================================
+     CONTAINER
+     ========================================= */
+
+  .hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    overflow: hidden;
+    background: var(--hero-bg);
+  }
+
+  /* =========================================
+     TEXT BLOCK
+     ========================================= */
+
+  .hero-text {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    overflow: hidden;
+    text-align: center;
+
+    padding:
+      clamp(28px, 8vw, 64px)
+      clamp(8px, 3vw, 24px)
+      clamp(34px, 9vw, 70px);
+  }
+
+  /* =========================================
+     TEXT CONTENT
+     ========================================= */
+
+  .hero-copy {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    container-type: inline-size;
+  }
+
+  .hero-copy > * {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  /* =========================================
+     SUBTITLE
+     ========================================= */
+
+  .hero-subtitle {
+    font-family: "Perpetua", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+    font-weight: 500;
+    font-style: italic;
+    text-transform: uppercase;
+    color: #78716c;
+    font-size: clamp(10px, 3.9cqw, 19px);
+    letter-spacing: 0.10em;
+  }
+
+  /* =========================================
+     NAME
+     ========================================= */
+
+  .hero-name {
+    margin-top: 0.75rem !important;
+    font-family: "Parisienne", cursive;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.25;
+    letter-spacing: 0.015em;
+    color: var(--brand-burgundy);
+    font-size: clamp(18px, 9.5cqw, 64px);
+  }
+
+  /* =========================================
+     ROLE
+     ========================================= */
+
+  .hero-role {
+    margin-top: 0.75rem !important;
+    font-family: "Perpetua", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+    font-weight: 500;
+    font-style: italic;
+    text-transform: uppercase;
+    color: #78716c;
+    font-size: clamp(10px, 3.9cqw, 19px);
+    letter-spacing: 0.18em;
+  }
+
+  /* =========================================
+     IMAGE
+     ========================================= */
+
+  .hero-media {
+    position: relative;
+    min-width: 0;
+  }
+
+  .hero-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  /* =========================================
+     MOBILE - UP TO 899 PX
+     ========================================= */
+
+  @media (max-width: 899px) {
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      min-height: 380px;
+    }
+
+    .hero-media {
+      grid-area: 1 / 1;
+      position: relative;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      min-height: 380px;
+    }
+
+    .hero-image {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      aspect-ratio: auto;
+      object-fit: cover;
+    }
+
+    .hero-text {
+      grid-area: 1 / 1;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 380px;
+      padding: 40px 16px;
+      overflow: hidden;
+
+      background: radial-gradient(
+        ellipse at center,
+        rgba(246, 241, 233, 0.95) 0%,
+        rgba(246, 241, 233, 0.75) 45%,
+        rgba(246, 241, 233, 0.25) 75%,
+        rgba(246, 241, 233, 0.05) 100%
+      );
+    }
+
+    .hero-copy {
+      width: 100%;
+    }
+
+    .hero-copy > * {
+      text-align: center;
+    }
+  }
+
+  /* =========================================
+     DESKTOP - FROM 900 PX
+     ========================================= */
+
+  @media (min-width: 900px) {
+    .hero-text,
+    .hero-media {
+      grid-area: 1 / 1;
+    }
+
+    .hero-text {
+      position: static;
+      z-index: 2;
+      align-self: stretch;
+      justify-self: start;
+      width: 46%;
+      overflow: visible;
+
+      padding: 48px clamp(24px, 4vw, 72px);
+
+      transform: translateX(
+        clamp(200px, calc(200px + (100vw - 1600px) * 0.3125), 300px)
+      );
+    }
+
+    .hero-media {
+      z-index: 0;
+      justify-self: end;
+      width: 70%;
+    }
+
+    .hero-image {
+      position: static;
+      height: var(--hero-desktop-height);
+      aspect-ratio: auto;
+
+      -webkit-mask-image: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.10) 12%,
+        rgba(0, 0, 0, 0.32) 28%,
+        rgba(0, 0, 0, 0.62) 43%,
+        rgba(0, 0, 0, 0.88) 60%,
+        rgba(0, 0, 0, 1) 80%
+      );
+
+      mask-image: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.10) 12%,
+        rgba(0, 0, 0, 0.32) 28%,
+        rgba(0, 0, 0, 0.62) 43%,
+        rgba(0, 0, 0, 0.88) 60%,
+        rgba(0, 0, 0, 1) 80%
+      );
+    }
+  }
+
+  /* =========================================
+     EXTRA LARGE SCREENS - FROM 1921 PX
+     ========================================= */
+
+  @media (min-width: 1921px) {
+    .hero {
+      grid-template-columns: 1920px;
+      justify-content: center;
+    }
+
+    .hero-text {
+      transform: translateX(300px);
+    }
+
+    .hero-media {
+      width: 70%;
+      justify-self: end;
+    }
+
+    .hero-image {
+      height: 560px;
+
+      -webkit-mask-image: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.10) 12%,
+        rgba(0, 0, 0, 0.32) 28%,
+        rgba(0, 0, 0, 0.62) 43%,
+        rgba(0, 0, 0, 0.88) 50%,
+        rgba(0, 0, 0, 1) 54%,
+        rgba(0, 0, 0, 0.976) 58.6%,
+        rgba(0, 0, 0, 0.905) 63.2%,
+        rgba(0, 0, 0, 0.794) 67.8%,
+        rgba(0, 0, 0, 0.655) 72.4%,
+        rgba(0, 0, 0, 0.5) 77%,
+        rgba(0, 0, 0, 0.345) 81.6%,
+        rgba(0, 0, 0, 0.206) 86.2%,
+        rgba(0, 0, 0, 0.095) 90.8%,
+        rgba(0, 0, 0, 0.024) 95.4%,
+        rgba(0, 0, 0, 0) 100%
+      );
+
+      mask-image: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.10) 12%,
+        rgba(0, 0, 0, 0.32) 28%,
+        rgba(0, 0, 0, 0.62) 43%,
+        rgba(0, 0, 0, 0.88) 50%,
+        rgba(0, 0, 0, 1) 54%,
+        rgba(0, 0, 0, 0.976) 58.6%,
+        rgba(0, 0, 0, 0.905) 63.2%,
+        rgba(0, 0, 0, 0.794) 67.8%,
+        rgba(0, 0, 0, 0.655) 72.4%,
+        rgba(0, 0, 0, 0.5) 77%,
+        rgba(0, 0, 0, 0.345) 81.6%,
+        rgba(0, 0, 0, 0.206) 86.2%,
+        rgba(0, 0, 0, 0.095) 90.8%,
+        rgba(0, 0, 0, 0.024) 95.4%,
+        rgba(0, 0, 0, 0) 100%
+      );
+    }
+  }
+
+  /* =========================================
+     ANIMATIONS
+     ========================================= */
+
+  @keyframes hero-fade-in {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes hero-reveal {
+    from {
+      opacity: 0;
+      clip-path: inset(-20% 50% -20% 50%);
+    }
+
+    to {
+      opacity: 1;
+      clip-path: inset(-20% -5% -20% -5%);
+    }
+  }
+
+  @keyframes hero-line-draw {
+    from {
+      transform: scaleX(0);
+      opacity: 0;
+    }
+
+    to {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+  }
+
+  /* =========================================
+     GOLD DECORATIVE LINE
+     ========================================= */
+
+  .hero-line {
+    position: absolute;
+    z-index: 3;
+    left: 8%;
+    right: 8%;
+    bottom: 0;
+    height: 1px;
+
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(var(--brand-gold-rgb), 0.85) 20%,
+      var(--brand-gold) 50%,
+      rgba(var(--brand-gold-rgb), 0.85) 80%,
+      transparent
+    );
+
+    transform-origin: center;
+
+    animation:
+      hero-line-draw
+      5000ms
+      cubic-bezier(0.25, 0.6, 0.25, 1)
+      700ms
+      both;
+  }
+
+  /* =========================================
+     TEXT REVEAL
+     ========================================= */
+
+  .hero-reveal {
+    animation:
+      hero-reveal
+      4000ms
+      cubic-bezier(0.25, 0.6, 0.25, 1)
+      both;
+  }
+
+  .hero-reveal-1 {
+    animation-delay: 700ms;
+  }
+
+  .hero-reveal-2 {
+    animation-delay: 2200ms;
+  }
+
+  .hero-reveal-3 {
+    animation-delay: 3200ms;
+  }
+
+  /* =========================================
+     IMAGE FADE IN
+     ========================================= */
+
+  .hero-image {
+    animation: hero-fade-in 2500ms ease-out 300ms both;
+  }
+
+  /* =========================================
+     REDUCED MOTION
+     ========================================= */
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-line,
+    .hero-reveal,
+    .hero-image {
+      animation: none !important;
+      opacity: 1;
+      transform: none;
+      clip-path: none;
+    }
+  }
+</style>

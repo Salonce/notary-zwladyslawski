@@ -1,0 +1,72 @@
+
+---
+import '../styles/global.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Kancelaria Notarialna Zbigniew Władysławski | Olsztyn</title>
+
+    <meta
+      name="description"
+      content="Kancelaria Notarialna Zbigniewa Władysławskiego w Olsztynie. Profesjonalna obsługa notarialna, akty notarialne, nieruchomości, testamenty, sprawy spadkowe i poświadczenia."
+    />
+
+    <meta name="robots" content="index, follow" />
+
+    <link rel="canonical" href="https://notariusz.wladyslawski.pl/" />
+
+    <link rel="icon" type="image/png" href="/assets/ZW.png" />
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "name": "Kancelaria Notarialna Zbigniew Władysławski Notariusz",
+        "url": "https://notariusz.wladyslawski.pl/",
+        "description": "Kancelaria Notarialna Zbigniewa Władysławskiego w Olsztynie. Profesjonalna obsługa notarialna, akty notarialne, nieruchomości, testamenty, sprawy spadkowe i poświadczenia.",
+        "telephone": "+48 89 527 38 39",
+        "email": "notariusz@wladyslawski.pl",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "ul. Dąbrowszczaków 21/3",
+          "postalCode": "10-540",
+          "addressLocality": "Olsztyn",
+          "addressCountry": "PL"
+        },
+        "areaServed": {
+          "@type": "City",
+          "name": "Olsztyn"
+        }
+      }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&family=Parisienne&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style>
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+  }
+</style>

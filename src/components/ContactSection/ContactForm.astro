@@ -1,0 +1,738 @@
+
+---
+import TitleDivider from '../shared/TitleDivider.astro';
+---
+
+<section class="contact-form" data-contact-form-section>
+  <!-- HEADER -->
+  <div class="text-center">
+    <h2
+      id="contact-form-title"
+      class="contact-form-title mt-2 font-main-heading text-[34px] font-normal tracking-wide text-black md:text-[40px]"
+    >
+      Formularz kontaktowy
+    </h2>
+
+    <div class="contact-form-divider">
+      <TitleDivider />
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <form
+    id="contact-form"
+    aria-labelledby="contact-form-title"
+    novalidate
+    class="contact-form-body mx-auto mt-10 w-full max-w-xl space-y-5 font-main-body md:mt-12 md:space-y-6"
+  >
+    <!-- HONEYPOT -->
+    <div class="honeypot" aria-hidden="true">
+      <label for="website">Nie wypełniaj tego pola</label>
+      <input
+        type="text"
+        id="website"
+        name="botcheck"
+        tabindex="-1"
+        autocomplete="off"
+      />
+    </div>
+
+    <!-- ERROR SUMMARY -->
+    <div
+      id="form-error-summary"
+      tabindex="-1"
+      class="form-error-summary hidden border-l-2 border-red-700 bg-red-50/70 px-5 py-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700"
+      role="alert"
+      aria-labelledby="form-error-title"
+    >
+      <h3
+        id="form-error-title"
+        class="font-main-body text-[12px] font-medium uppercase tracking-[0.12em] text-red-800"
+      >
+        Prosimy o poprawienie formularza
+      </h3>
+
+      <p class="mt-2 font-main-body text-[13px] leading-6 text-red-800">
+        Sprawdź poniższe pola i uzupełnij wymagane informacje.
+      </p>
+
+      <ul
+        id="form-error-list"
+        class="mt-2 list-inside list-disc space-y-1 font-main-body text-[13px] leading-6 text-red-800"
+      ></ul>
+    </div>
+
+    <!-- IMIĘ I NAZWISKO -->
+    <div>
+      <label
+        for="name"
+        class="mb-2 block font-main-body text-[12px] font-normal uppercase tracking-[0.2em] text-[var(--brand-gold-dark)]"
+      >
+        Imię i nazwisko
+        <span aria-hidden="true" class="text-red-700">*</span>
+      </label>
+
+      <input
+        id="name"
+        name="name"
+        type="text"
+        autocomplete="name"
+        placeholder="Jan Kowalski"
+        maxlength="100"
+        required
+        aria-describedby="name-error"
+        class="w-full border border-[#D2C3A8] bg-[#F7F3EB]/90 px-4 py-3 font-main-body text-[17px] font-normal leading-[1.7] text-stone-800 outline-none transition-colors duration-200 placeholder:text-stone-400 hover:border-[var(--brand-gold-dark)] focus:border-[var(--brand-gold-dark)] focus:ring-1 focus:ring-[var(--brand-gold)]/40 md:text-[18px]"
+      />
+
+      <p
+        id="name-error"
+        class="field-error mt-2 hidden font-main-body text-[13px] leading-5 text-red-700"
+      ></p>
+    </div>
+
+    <!-- ADRES E-MAIL -->
+    <div>
+      <label
+        for="email"
+        class="mb-2 block font-main-body text-[12px] font-normal uppercase tracking-[0.2em] text-[var(--brand-gold-dark)]"
+      >
+        Adres e-mail
+        <span aria-hidden="true" class="text-red-700">*</span>
+      </label>
+
+      <input
+        id="email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        inputmode="email"
+        placeholder="jan.kowalski@email.pl"
+        required
+        aria-describedby="email-error"
+        class="w-full border border-[#D2C3A8] bg-[#F7F3EB]/90 px-4 py-3 font-main-body text-[17px] font-normal leading-[1.7] text-stone-800 outline-none transition-colors duration-200 placeholder:text-stone-400 hover:border-[var(--brand-gold-dark)] focus:border-[var(--brand-gold-dark)] focus:ring-1 focus:ring-[var(--brand-gold)]/40 md:text-[18px]"
+      />
+
+      <p
+        id="email-error"
+        class="field-error mt-2 hidden font-main-body text-[13px] leading-5 text-red-700"
+      ></p>
+    </div>
+
+    <!-- TREŚĆ ZAPYTANIA -->
+    <div>
+      <label
+        for="message"
+        class="mb-2 block font-main-body text-[12px] font-normal uppercase tracking-[0.2em] text-[var(--brand-gold-dark)]"
+      >
+        Treść zapytania
+        <span aria-hidden="true" class="text-red-700">*</span>
+      </label>
+
+      <textarea
+        id="message"
+        name="message"
+        rows="5"
+        maxlength="5000"
+        placeholder="W czym możemy Państwu pomóc?"
+        required
+        aria-describedby="message-error"
+        class="w-full resize-y border border-[#D2C3A8] bg-[#F7F3EB]/90 px-4 py-3 font-main-body text-[17px] font-normal leading-[1.85] text-stone-800 outline-none transition-colors duration-200 placeholder:text-stone-400 hover:border-[var(--brand-gold-dark)] focus:border-[var(--brand-gold-dark)] focus:ring-1 focus:ring-[var(--brand-gold)]/40 md:text-[18px] md:leading-[1.9]"
+      ></textarea>
+
+      <p
+        id="message-error"
+        class="field-error mt-2 hidden font-main-body text-[13px] leading-5 text-red-700"
+      ></p>
+    </div>
+
+    <!-- ZGODA -->
+    <div class="pt-1">
+      <label
+        for="consent"
+        class="flex cursor-pointer items-start gap-3"
+      >
+        <input
+          id="consent"
+          name="consent"
+          type="checkbox"
+          required
+          aria-describedby="consent-error"
+          class="mt-1 h-4 w-4 shrink-0 cursor-pointer accent-[var(--brand-gold-dark)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand-gold-dark)]"
+        />
+
+        <span
+          class="font-main-body text-[13px] font-normal leading-6 text-stone-600 md:text-[14px]"
+        >
+          Wyrażam zgodę na przetwarzanie moich danych osobowych
+          w celu przetworzenia zapytania. Administratorem danych
+          osobowych jest Kancelaria Notarialna Zbigniewa Władysławskiego.
+          <span aria-hidden="true" class="text-red-700">*</span>
+        </span>
+      </label>
+
+      <p
+        id="consent-error"
+        class="field-error mt-2 hidden font-main-body text-[13px] leading-5 text-red-700"
+      ></p>
+    </div>
+
+    <!-- INFORMACJA O POLACH WYMAGANYCH -->
+    <p class="font-main-body text-[12px] leading-5 text-stone-500">
+      Pola oznaczone symbolem
+      <span aria-hidden="true" class="text-red-700">*</span>
+      są wymagane.
+    </p>
+
+    <!-- OSTRZEŻENIE O DANYCH -->
+    <p class="font-main-body text-[12px] leading-5 text-stone-500">
+      Prosimy o nieprzesyłanie w formularzu numerów PESEL, skanów
+      dokumentów ani innych poufnych informacji.
+    </p>
+
+    <!-- KOMUNIKAT O SUKCESIE -->
+    <div
+      id="form-success"
+      role="status"
+      aria-live="polite"
+      class="hidden items-start gap-3 border-l-2 border-[#66866b] bg-[#edf3ec]/80 px-4 py-3 font-main-body text-[14px] font-normal leading-7 text-[#405e46] md:text-[15px]"
+    >
+      <span
+        aria-hidden="true"
+        class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#78977a] bg-[#f7faf5] text-[#527657]"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="h-4 w-4"
+        >
+          <path d="m5 12 4 4L19 6"></path>
+        </svg>
+      </span>
+
+      <p class="min-w-0">
+        Dziękujemy. Wiadomość została wysłana pomyślnie.
+      </p>
+    </div>
+
+    <!-- KOMUNIKAT O BŁĘDZIE WYSYŁANIA -->
+    <div
+      id="form-send-error"
+      role="alert"
+      aria-live="assertive"
+      class="hidden border-l-2 border-red-700 bg-red-50/70 px-4 py-3 font-main-body text-[14px] font-normal leading-7 text-red-800 md:text-[15px]"
+    ></div>
+
+    <!-- PRZYCISK WYSYŁANIA -->
+    <div class="pt-1">
+      <button
+        id="contact-submit"
+        type="submit"
+        class="group inline-flex w-fit max-w-full items-center justify-center gap-4 border border-[#D2C3A8] bg-[#F7F3EB]/90 px-6 py-3 font-main-body text-[14px] font-normal tracking-wide text-[var(--brand-gold-dark)] transition-colors duration-220 hover:border-[var(--brand-gold-dark)] hover:bg-[#EFE6D6] hover:text-[var(--brand-gold-dark)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--brand-gold-dark)] disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        <span id="contact-submit-label">Wyślij zapytanie</span>
+
+        <span
+          id="contact-submit-arrow"
+          class="text-[var(--brand-gold-dark)] transition-transform duration-250 group-hover:translate-x-1"
+          aria-hidden="true"
+        >
+          →
+        </span>
+      </button>
+    </div>
+  </form>
+</section>
+
+<style>
+  .contact-form-title {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 800ms ease,
+      transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .contact-form-divider {
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition:
+      opacity 500ms ease 250ms,
+      transform 900ms cubic-bezier(0.22, 1, 0.36, 1) 250ms;
+  }
+
+  .contact-form-body {
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity 600ms ease,
+      transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: 140ms;
+  }
+
+  .contact-form.is-visible .contact-form-title {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .contact-form.is-visible .contact-form-divider {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  .contact-form.is-visible .contact-form-body {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .honeypot {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .field-error:not(.hidden) {
+    display: block;
+  }
+
+  .form-error-summary:not(.hidden) {
+    display: block;
+  }
+
+  #form-success:not(.hidden) {
+    display: flex;
+  }
+
+  #form-send-error:not(.hidden) {
+    display: block;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contact-form-title,
+    .contact-form-divider,
+    .contact-form-body {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+
+<script>
+  import { sendEmail } from '../../lib/mail';
+
+  const SEND_TIMEOUT_MS = 15000;
+
+  const formElement = document.querySelector<HTMLFormElement>(
+    '#contact-form',
+  );
+
+  const section = document.querySelector<HTMLElement>(
+    '[data-contact-form-section]',
+  );
+
+  // Section animation
+  if (section) {
+    if (
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      typeof IntersectionObserver === 'undefined'
+    ) {
+      section.classList.add('is-visible');
+    } else {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry?.isIntersecting) {
+            section.classList.add('is-visible');
+            observer.disconnect();
+          }
+        },
+        { threshold: 0.1 },
+      );
+
+      observer.observe(section);
+    }
+  }
+
+  // Form initialization
+  if (formElement) {
+    const contactForm: HTMLFormElement = formElement;
+
+    const nameInput = contactForm.querySelector<HTMLInputElement>('#name')!;
+    const emailInput = contactForm.querySelector<HTMLInputElement>('#email')!;
+    const messageInput =
+      contactForm.querySelector<HTMLTextAreaElement>('#message')!;
+    const consentInput =
+      contactForm.querySelector<HTMLInputElement>('#consent')!;
+
+    const errorSummary = contactForm.querySelector<HTMLElement>(
+      '#form-error-summary',
+    )!;
+    const errorList = contactForm.querySelector<HTMLUListElement>(
+      '#form-error-list',
+    )!;
+
+    const successMessage = contactForm.querySelector<HTMLElement>(
+      '#form-success',
+    )!;
+    const sendError = contactForm.querySelector<HTMLElement>(
+      '#form-send-error',
+    )!;
+
+    const submitButton = contactForm.querySelector<HTMLButtonElement>(
+      '#contact-submit',
+    )!;
+    const submitLabel = contactForm.querySelector<HTMLElement>(
+      '#contact-submit-label',
+    )!;
+    const submitArrow = contactForm.querySelector<HTMLElement>(
+      '#contact-submit-arrow',
+    )!;
+
+    type FieldName = 'name' | 'email' | 'message' | 'consent';
+
+    const fields: Record<
+      FieldName,
+      HTMLInputElement | HTMLTextAreaElement
+    > = {
+      name: nameInput,
+      email: emailInput,
+      message: messageInput,
+      consent: consentInput,
+    };
+
+    let submitted = false;
+    let isSending = false;
+
+    const errorMessages: Record<FieldName, string> = {
+      name: '',
+      email: '',
+      message: '',
+      consent: '',
+    };
+
+    function getFieldError(field: FieldName): string {
+      if (field === 'name') {
+        const value = nameInput.value.trim();
+
+        if (!value) {
+          return 'Prosimy o podanie imienia i nazwiska.';
+        }
+
+        if (value.length < 2) {
+          return 'Prosimy o wpisanie co najmniej 2 znaków.';
+        }
+
+        if (value.length > 100) {
+          return 'Imię i nazwisko może mieć maksymalnie 100 znaków.';
+        }
+      }
+
+      if (field === 'email') {
+        const value = emailInput.value.trim();
+
+        if (!value) {
+          return 'Prosimy o podanie adresu e-mail.';
+        }
+
+        if (!emailInput.validity.valid) {
+          return 'Prosimy o podanie prawidłowego adresu e-mail.';
+        }
+      }
+
+      if (field === 'message') {
+        const value = messageInput.value.trim();
+
+        if (!value) {
+          return 'Prosimy o wpisanie treści zapytania.';
+        }
+
+        if (value.length < 10) {
+          return 'Treść zapytania musi zawierać co najmniej 10 znaków.';
+        }
+
+        if (value.length > 5000) {
+          return 'Treść zapytania może mieć maksymalnie 5000 znaków.';
+        }
+      }
+
+      if (field === 'consent' && !consentInput.checked) {
+        return 'Zaznaczenie zgody jest wymagane.';
+      }
+
+      return '';
+    }
+
+    function shouldShowError(field: FieldName): boolean {
+      return Boolean(
+        errorMessages[field] &&
+        (fields[field].dataset.touched === 'true' || submitted),
+      );
+    }
+
+    function updateFieldError(field: FieldName): void {
+      const element = fields[field];
+
+      const errorElement = contactForm.querySelector<HTMLElement>(
+        `#${field}-error`,
+      );
+
+      errorMessages[field] = getFieldError(field);
+
+      const showError = shouldShowError(field);
+
+      element.setAttribute('aria-invalid', showError ? 'true' : 'false');
+
+      if (showError) {
+        element.classList.add('!border-red-700');
+        errorElement?.classList.remove('hidden');
+
+        if (errorElement) {
+          errorElement.textContent = errorMessages[field];
+        }
+      } else {
+        element.classList.remove('!border-red-700');
+        errorElement?.classList.add('hidden');
+
+        if (errorElement) {
+          errorElement.textContent = '';
+        }
+      }
+    }
+
+    function updateErrorSummary(): void {
+      errorList.replaceChildren();
+
+      const fieldOrder: FieldName[] = [
+        'name',
+        'email',
+        'message',
+        'consent',
+      ];
+
+      const labels: Record<FieldName, string> = {
+        name: 'Imię i nazwisko',
+        email: 'Adres e-mail',
+        message: 'Treść zapytania',
+        consent: 'Zgoda',
+      };
+
+      for (const field of fieldOrder) {
+        if (!shouldShowError(field)) {
+          continue;
+        }
+
+        const item = document.createElement('li');
+        const link = document.createElement('a');
+
+        link.href = `#${field}`;
+        link.className =
+          'underline underline-offset-2 hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2';
+
+        link.textContent = `${labels[field]}: ${errorMessages[field]}`;
+
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+
+          fields[field].focus();
+          fields[field].scrollIntoView({
+            block: 'center',
+            behavior: 'smooth',
+          });
+        });
+
+        item.append(link);
+        errorList.append(item);
+      }
+
+      const hasErrors = errorList.children.length > 0;
+      errorSummary.classList.toggle('hidden', !hasErrors);
+    }
+
+    function validateForm(): boolean {
+      const fieldOrder: FieldName[] = [
+        'name',
+        'email',
+        'message',
+        'consent',
+      ];
+
+      let isValid = true;
+
+      for (const field of fieldOrder) {
+        updateFieldError(field);
+
+        if (errorMessages[field]) {
+          isValid = false;
+        }
+      }
+
+      updateErrorSummary();
+
+      return isValid;
+    }
+
+    function hideMessages(): void {
+      successMessage.classList.add('hidden');
+      sendError.classList.add('hidden');
+      sendError.textContent = '';
+    }
+
+    function setSendingState(sending: boolean): void {
+      isSending = sending;
+      submitButton.disabled = sending;
+      submitButton.setAttribute('aria-busy', String(sending));
+
+      submitLabel.textContent = sending
+        ? 'Wysyłanie...'
+        : 'Wyślij zapytanie';
+
+      submitArrow.classList.toggle('hidden', sending);
+    }
+
+    function withTimeout<T>(
+      promise: Promise<T>,
+      ms: number,
+    ): Promise<T> {
+      return new Promise<T>((resolve, reject) => {
+        const timer = window.setTimeout(() => {
+          reject(new Error('Request timed out'));
+        }, ms);
+
+        promise.then(
+          (value) => {
+            window.clearTimeout(timer);
+            resolve(value);
+          },
+          (error) => {
+            window.clearTimeout(timer);
+            reject(error);
+          },
+        );
+      });
+    }
+
+    // Field interaction and validation
+    for (const field of Object.keys(fields) as FieldName[]) {
+      const element = fields[field];
+
+      element.addEventListener('blur', () => {
+        element.dataset.touched = 'true';
+        updateFieldError(field);
+
+        if (submitted) {
+          updateErrorSummary();
+        }
+      });
+
+      element.addEventListener('input', () => {
+        if (element.dataset.touched === 'true' || submitted) {
+          updateFieldError(field);
+
+          if (submitted) {
+            updateErrorSummary();
+          }
+        }
+      });
+
+      element.addEventListener('change', () => {
+        if (element.dataset.touched === 'true' || submitted) {
+          updateFieldError(field);
+
+          if (submitted) {
+            updateErrorSummary();
+          }
+        }
+      });
+    }
+
+    // Form submission
+    contactForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      if (isSending) {
+        return;
+      }
+
+      hideMessages();
+      submitted = true;
+
+      if (!validateForm()) {
+        errorSummary.focus();
+        return;
+      }
+
+      setSendingState(true);
+
+      try {
+        nameInput.value = nameInput.value.trim();
+        emailInput.value = emailInput.value.trim();
+        messageInput.value = messageInput.value.trim();
+
+        // Includes the honeypot field.
+        const formData = new FormData(contactForm);
+
+        const result = await withTimeout(
+          sendEmail(formData),
+          SEND_TIMEOUT_MS,
+        );
+
+        if (result.success) {
+          contactForm.reset();
+
+          submitted = false;
+
+          for (const field of Object.keys(fields) as FieldName[]) {
+            delete fields[field].dataset.touched;
+
+            fields[field].setAttribute('aria-invalid', 'false');
+            fields[field].classList.remove('!border-red-700');
+
+            const errorElement = contactForm.querySelector<HTMLElement>(
+              `#${field}-error`,
+            );
+
+            errorElement?.classList.add('hidden');
+
+            if (errorElement) {
+              errorElement.textContent = '';
+            }
+          }
+
+          errorSummary.classList.add('hidden');
+          errorList.replaceChildren();
+
+          successMessage.classList.remove('hidden');
+
+          successMessage.scrollIntoView({
+            block: 'nearest',
+            behavior: 'smooth',
+          });
+        } else {
+          sendError.textContent =
+            result.message || 'Nie udało się wysłać wiadomości.';
+
+          sendError.classList.remove('hidden');
+          sendError.focus();
+        }
+      } catch (error) {
+        console.error('Contact form error:', error);
+
+        sendError.textContent =
+          'Wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie później.';
+
+        sendError.classList.remove('hidden');
+        sendError.focus();
+      } finally {
+        setSendingState(false);
+      }
+    });
+  }
+</script>

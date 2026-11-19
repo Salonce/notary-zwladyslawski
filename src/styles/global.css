@@ -1,0 +1,302 @@
+
+@import "tailwindcss";
+
+/* =========================================
+   1. BREAKPOINTS TAILWIND
+   ========================================= */
+
+@theme {
+  --breakpoint-xxxxxs: 340px;
+  --breakpoint-xxxxs: 360px;
+  --breakpoint-xxxs: 380px;
+  --breakpoint-xxs: 420px;
+  --breakpoint-xs: 480px;
+  --breakpoint-columns: 1100px;
+}
+
+/* =========================================
+   2. GLOBALNE ZMIENNE
+   ========================================= */
+
+:root {
+  /* Kolory */
+  --brand-burgundy: #7f2336;
+  --brand-burgundy-soft: #862638;
+  --brand-gold: #d5b77f;
+  --brand-gold-rgb: 213, 183, 127;
+  --brand-gold-dark: #6f5b2f;
+  --brand-gold-motto: #a9822f;
+  --button-surface: #f7f3eb;
+
+  /* Typografia */
+  --font-top-bar: "Merriweather", Georgia, serif;
+  --font-top-navbar: "Merriweather", Georgia, serif;
+  --font-main-heading: "Merriweather", Georgia, serif;
+  --font-main-body: "Inter", Arial, sans-serif;
+  --font-motto: "Cinzel Decorative", Georgia, serif;
+  --font-notarial-services: "Inter", Arial, sans-serif;
+  --font-roman-numerals: "Cinzel", Georgia, serif;
+
+  /* Grubość fontów */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Kolory tekstu */
+  --text-primary: #292424;
+  --text-secondary: #574e4e;
+
+  /* Rozmiary nagłówków */
+  --heading-size-columns: 40px;
+  --heading-size-no-columns: 34px;
+
+  /* Odstępy */
+  --section-gap: 128px;
+
+  /* Tło główne */
+  --background-main: linear-gradient(
+    180deg,
+    #f6f1e9 0%,
+    #f2ece1 100%
+  );
+}
+
+/* =========================================
+   3. GLOBALNE USTAWIENIA
+   ========================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  min-height: 100%;
+  background-color: #f2ece1;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-main-body);
+  color: var(--text-secondary);
+  background: var(--background-main);
+}
+
+/* =========================================
+   4. TYPOGRAFIA GLOBALNA
+   ========================================= */
+
+.font-top-bar {
+  font-family: var(--font-top-bar);
+  font-weight: var(--weight-regular);
+  letter-spacing: 0.01em;
+  color: var(--text-primary);
+}
+
+.font-top-navbar {
+  font-family: var(--font-top-navbar);
+  font-weight: var(--weight-regular);
+  letter-spacing: 0.01em;
+  color: var(--text-primary);
+}
+
+.font-main-heading {
+  font-family: var(--font-main-heading);
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.01em;
+  color: var(--text-secondary);
+}
+
+.font-main-body {
+  font-family: var(--font-main-body);
+  font-weight: var(--weight-regular);
+  color: var(--text-secondary);
+}
+
+.font-motto {
+  font-family: var(--font-motto);
+  font-weight: var(--weight-regular);
+}
+
+.font-notarial-services-list-main-element {
+  font-family: var(--font-notarial-services);
+  font-weight: var(--weight-regular);
+  color: var(--text-primary);
+}
+
+.font-roman-numerals {
+  font-family: var(--font-roman-numerals);
+  font-weight: var(--weight-regular);
+  letter-spacing: 0.01em;
+  color: var(--text-primary);
+}
+
+/* =========================================
+   5. PRZYCISKI
+   ========================================= */
+
+.font-main-body.button-accent {
+  border-color: rgba(var(--brand-gold-rgb), 0.55);
+  background-color: var(--button-surface);
+  color: var(--brand-gold-dark);
+
+  transition:
+    background-color 220ms ease,
+    border-color 220ms ease,
+    color 220ms ease;
+}
+
+.font-main-body.button-accent:hover {
+  border-color: var(--brand-gold);
+  background-color: #e9ddbf;
+  color: var(--brand-gold-dark);
+}
+
+/* =========================================
+   6. PRZEWIJANIE DO SEKCJI
+   ========================================= */
+
+#home,
+#czynnosci-notarialne,
+#oplaty,
+#strefa-klienta,
+#kontakt,
+#hero {
+  scroll-margin-top: 125px;
+}
+
+/* Laptopy i niższe ekrany */
+@media (min-width: 768px) and (max-height: 800px) {
+  #home,
+  #czynnosci-notarialne,
+  #oplaty,
+  #strefa-klienta,
+  #kontakt,
+  #hero {
+    scroll-margin-top: 110px;
+  }
+}
+
+/* Telefony */
+@media (max-width: 767px) {
+  #home,
+  #czynnosci-notarialne,
+  #oplaty,
+  #strefa-klienta,
+  #kontakt,
+  #hero {
+    scroll-margin-top: 105px;
+  }
+}
+
+/* =========================================
+   7. NUMERY TELEFONÓW I DANE
+   ========================================= */
+
+.phone,
+.account-number,
+.identification-row strong {
+  font-family: var(--font-main-body);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: "lnum", "tnum";
+}
+
+/* =========================================
+   8. ODSTĘPY MIĘDZY SEKCJAMI
+   ========================================= */
+
+/* Tablety i laptopy */
+@media (min-width: 768px) and (max-width: 1919px) {
+  :root {
+    --section-gap: 165px;
+  }
+}
+
+/* Duże ekrany desktopowe */
+@media (min-width: 1200px) and (min-height: 900px) {
+  :root {
+    --section-gap: 224px;
+  }
+}
+
+/* =========================================
+   9. UKŁAD KOLUMN TREŚCI
+   ========================================= */
+
+.content-columns {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 24px;
+}
+
+.content-columns__container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.content-columns__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 100px;
+  align-items: start;
+}
+
+.content-columns__item {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+}
+
+/* =========================================
+   10. POJEDYNCZA KOLUMNA TREŚCI
+   ========================================= */
+
+.content-column {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+}
+
+/* =========================================
+   11. RESPONSYWNOŚĆ NAGŁÓWKÓW
+   ========================================= */
+
+/* Wąskie telefony */
+@media (max-width: 389px) {
+  .font-main-heading {
+    font-size: 1.85rem;
+    line-height: 1.3;
+  }
+}
+
+/* Bardzo wąskie telefony */
+@media (max-width: 359px) {
+  .font-main-heading {
+    font-size: 1.65rem;
+    line-height: 1.3;
+  }
+}
+
+/* =========================================
+   12. MIEJSCE NA FIXED FOOTER
+   ========================================= */
+
+body {
+  padding-bottom: 100px;
+}
+
+@media (min-width: 440px) {
+  body {
+    padding-bottom: 110px;
+  }
+}
