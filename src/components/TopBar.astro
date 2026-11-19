@@ -10,7 +10,12 @@
      ========================================= */
 
   header.header-kancelaria {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 60;
+
     isolation: isolate;
     overflow: hidden;
 
@@ -304,4 +309,11 @@
       </div>
     </div>
   </div>
+
+  <!-- SPACER: zachowuje miejsce dla fixed TopBar -->
+  <div
+    class="h-[31px] w-full
+          [@media(min-width:1024px)_and_(min-height:900px)]:h-[38px]"
+    aria-hidden="true"
+  ></div>
 </header>
