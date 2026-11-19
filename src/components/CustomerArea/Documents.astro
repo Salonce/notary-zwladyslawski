@@ -63,19 +63,12 @@ const documents = [
 ];
 ---
 
-<section
-  class="documents content-column"
-  data-documents-section
->
+<section class="documents content-column">
+
   <!-- HEADER -->
   <div class="text-center">
     <h2
-      class="documents-title
-             mt-2
-             font-main-heading
-             text-[34px]
-             tracking-wide
-             md:text-[40px]"
+      class="documents-title mt-2 font-main-heading text-[34px] tracking-wide md:text-[40px]"
     >
       Dokumenty do pobrania
     </h2>
@@ -87,16 +80,7 @@ const documents = [
 
   <!-- INTRO -->
   <div
-    class="documents-intro
-           mx-auto mt-7 max-w-3xl
-           text-justify
-           font-main-body
-           text-[17px]
-           leading-[1.85]
-           text-stone-600
-           md:mt-8
-           md:text-[18px]
-           md:leading-[1.9]"
+    class="documents-intro mx-auto mt-7 max-w-3xl text-justify font-main-body text-[17px] leading-[1.85] text-stone-600 md:mt-8 md:text-[18px] md:leading-[1.9]"
   >
     <p>
       Poniżej udostępniamy dokumenty pomocne w przygotowaniu do wybranych czynności notarialnych.
@@ -106,16 +90,12 @@ const documents = [
 
   <!-- DOCUMENT LIST -->
   <div
-    class="documents-list
-           mx-auto mt-7 max-w-3xl
-           font-main-body"
+    class="documents-list mx-auto mt-7 max-w-3xl font-main-body"
   >
     <div class="flex w-full flex-col">
-
       {documents.map((document) => (
         <div
-          class="group flex w-full items-center gap-3
-                 border-b border-[var(--brand-gold)]/35 py-3 md:py-3.5"
+          class="group flex w-full items-center gap-3 border-b border-[var(--brand-gold)]/35 py-3 md:py-3.5"
         >
           <!-- DOCUMENT ICON -->
           <span
@@ -148,7 +128,9 @@ const documents = [
           </span>
 
           <!-- DOCUMENT NAME -->
-          <span class="min-w-0 flex-1 font-main-body text-[14px] leading-[1.35] text-stone-800 md:text-[15px]">
+          <span
+            class="min-w-0 flex-1 font-main-body text-[14px] leading-[1.35] text-stone-800 md:text-[15px]"
+          >
             {document.title}
             {document.subtitle && (
               <>
@@ -165,11 +147,7 @@ const documents = [
             target={document.type === 'external' ? '_blank' : undefined}
             rel={document.type === 'external' ? 'noopener noreferrer' : undefined}
             aria-label={document.ariaLabel}
-            class="button-accent inline-flex shrink-0 items-center gap-1.5 rounded-md
-                   border px-2.5 py-1.5
-                   font-main-body text-[9px] uppercase tracking-[0.13em]
-                   no-underline
-                   md:px-3"
+            class="button-accent inline-flex shrink-0 items-center gap-1.5 rounded-md border px-2.5 py-1.5 font-main-body text-[9px] uppercase tracking-[0.13em] no-underline md:px-3"
           >
             <span>{document.action}</span>
 
@@ -221,7 +199,6 @@ const documents = [
           </a>
         </div>
       ))}
-
     </div>
   </div>
 
@@ -244,7 +221,7 @@ const documents = [
 </section>
 
 <style>
-  /* USUNIĘCIE DOMYŚLNYCH OZNACZEŃ LIST I LINKÓW */
+  /* SVG I LINKI */
   .documents a::before,
   .documents a::after,
   .documents li::before,
@@ -264,66 +241,61 @@ const documents = [
   }
 
   /* ANIMACJE */
-  .documents-title {
-    opacity: 0;
-    transform: translateY(14px);
-    transition:
-      opacity 800ms ease,
-      transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .documents-divider {
-    opacity: 0;
-    transform: scaleX(0);
-    transform-origin: center;
-    transition:
-      opacity 500ms ease 250ms,
-      transform 900ms cubic-bezier(0.22, 1, 0.36, 1) 250ms;
-  }
-
+  .documents-title,
+  .documents-divider,
   .documents-intro,
   .documents-list,
   .documents-closing,
   .documents-information {
-    opacity: 0;
-    transform: translateY(6px);
-    transition:
-      opacity 600ms ease,
-      transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+    animation: documents-enter 650ms ease both;
+  }
+
+  .documents-title {
+    animation-duration: 800ms;
+    animation-delay: 0ms;
+  }
+
+  .documents-divider {
+    animation: documents-divider-enter 900ms cubic-bezier(0.22, 1, 0.36, 1) 250ms both;
+    transform-origin: center;
   }
 
   .documents-intro {
-    transition-delay: 120ms;
+    animation-delay: 120ms;
   }
 
   .documents-list {
-    transition-delay: 210ms;
+    animation-delay: 210ms;
   }
 
   .documents-closing {
-    transition-delay: 300ms;
+    animation-delay: 300ms;
   }
 
   .documents-information {
-    transition-delay: 390ms;
+    animation-delay: 390ms;
   }
 
-  .documents.is-visible .documents-title {
-    opacity: 1;
-    transform: translateY(0);
+  @keyframes documents-enter {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
-  .documents.is-visible .documents-divider {
-    opacity: 1;
-    transform: scaleX(1);
-  }
-
-  .documents.is-visible .documents-intro,
-  .documents.is-visible .documents-list,
-  .documents.is-visible .documents-closing,
-  .documents.is-visible .documents-information {
-    opacity: 1;
-    transform: translateY(0);
+  @keyframes documents-divider-enter {
+    from {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    to {
+      opacity: 1;
+      transform: scaleX(1);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -333,41 +305,9 @@ const documents = [
     .documents-list,
     .documents-closing,
     .documents-information {
+      animation: none;
       opacity: 1;
       transform: none;
-      transition: none;
     }
   }
 </style>
-
-<script>
-  const documentsSection = document.querySelector<HTMLElement>(
-    '[data-documents-section]'
-  );
-
-  if (documentsSection) {
-    const prefersReducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    );
-
-    if (prefersReducedMotion.matches) {
-      documentsSection.classList.add('is-visible');
-    } else {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (!entry.isIntersecting) return;
-
-          requestAnimationFrame(() => {
-            documentsSection.classList.add('is-visible');
-            observer.disconnect();
-          });
-        },
-        {
-          threshold: 0.15,
-        }
-      );
-
-      observer.observe(documentsSection);
-    }
-  }
-</script>
