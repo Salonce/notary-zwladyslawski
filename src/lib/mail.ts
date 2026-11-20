@@ -4,31 +4,25 @@ export interface MailResponse {
   message: string;
 }
 
-const API_URL = 'https://api.web3forms.com/submit';
+const API_URL = import.meta.env.DEV
+  ? 'http://localhost:3000/api/contact'
+  : 'https://api.wladyslawski.pl/api/contact';
 
 export async function sendEmail(formData: FormData): Promise<MailResponse> {
-  const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY;
-
-  if (!accessKey) {
-    console.error('Missing Web3Forms access key.');
-
-    return {
-      success: false,
-      message: 'Unable to send the message. Please try again later.',
-    };
-  }
-
-  // Web3Forms credentials
-  formData.set('access_key', accessKey);
-
-  // Email configuration
-  formData.set('subject', 'Wiadomość z formularza kontaktowego.');
-  formData.set('from_name', 'notariusz.wladyslawski.pl');
+  const payload = {
+    name: String(formData.get('name') ?? ''),
+    email: String(formData.get('email') ?? ''),
+    message: String(formData.get('message') ?? ''),
+    botcheck: String(formData.get('botcheck') ?? ''),
+  };
 
   try {
     const response = await fetch(API_URL, {
       method: 'POST',
-      body: formData,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
     });
 
     const result = await response.json();
@@ -36,20 +30,20 @@ export async function sendEmail(formData: FormData): Promise<MailResponse> {
     if (!response.ok || !result.success) {
       return {
         success: false,
-        message: result.message ?? 'Failed to send message.',
+        message: result.message ?? 'Nie udało się wysłać wiadomości.',
       };
     }
 
     return {
       success: true,
-      message: result.message ?? 'Message sent successfully.',
+      message: result.message ?? 'Wiadomość została wysłana.',
     };
   } catch (error) {
-    console.error('Web3Forms error:', error);
+    console.error('Contact form error:', error);
 
     return {
       success: false,
-      message: 'Unable to send the message. Please try again later.',
+      message: 'Nie udało się połączyć z serwerem. Spróbuj ponownie później.',
     };
   }
 }
