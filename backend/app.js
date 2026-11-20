@@ -1,4 +1,3 @@
-
 import express from 'express';
 import { Resend } from 'resend';
 import dotenv from 'dotenv';
@@ -33,6 +32,7 @@ function buildContactEmail({ name, email, message }) {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="format-detection" content="email=no">
       <title>Nowa wiadomość - Kancelaria Notarialna</title>
     </head>
 
@@ -50,7 +50,7 @@ function buildContactEmail({ name, email, message }) {
 
             <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
               style="
-                max-width:620px;
+                max-width:660px;
                 background-color:#ffffff;
                 border:1px solid #e5dccd;
               ">
@@ -95,108 +95,143 @@ function buildContactEmail({ name, email, message }) {
                 </td>
               </tr>
 
-              
-<!-- Dane nadawcy -->
-<tr>
-  <td style="padding:0 35px 34px;">
+              <!-- Dane nadawcy -->
+              <tr>
+                <td style="padding:0 35px 34px;">
 
-    <!-- Nagłówek: imię i nazwisko -->
-    <h2 style="
-      margin:0 0 12px;
-      text-align:left;
-      font-family:Georgia,serif;
-      font-size:21px;
-      font-weight:normal;
-      color:#7f2336;
-    ">
-      Imię i nazwisko
-    </h2>
+                  <!-- Nagłówek: imię i nazwisko -->
+                  <h2 style="
+                    margin:0 0 12px;
+                    text-align:center;
+                    font-family:Georgia,serif;
+                    font-size:21px;
+                    font-weight:normal;
+                    color:#000000;
+                  ">
+                    Imię i nazwisko
+                  </h2>
 
-    <!-- Chmurka: samo imię i nazwisko -->
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
-      style="
-        background-color:#f9f6f0;
-        border:1px solid #e9e1d5;
-      ">
-      <tr>
-        <td style="
-          padding:18px 26px;
-          text-align:left;
-          font-family:Georgia,serif;
-          font-size:18px;
-          line-height:1.5;
-          color:#292424;
-        ">
-          ${safeName}
-        </td>
-      </tr>
-    </table>
+                  <!-- Chmurka: samo imię i nazwisko -->
+                  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
+                    style="
+                      background-color:#f9f6f0;
+                      border:1px solid #e9e1d5;
+                    ">
+                    <tr>
+                      <td style="
+                        padding:18px 26px;
+                        text-align:center;
+                        font-family:Arial,Helvetica,sans-serif;
+                        font-size:15px;
+                        line-height:1.6;
+                        color:#000000;
+                      ">
+                        ${safeName}
+                      </td>
+                    </tr>
+                  </table>
 
-    <!-- Nagłówek: adres e-mail -->
-    <h2 style="
-      margin:25px 0 12px;
-      text-align:left;
-      font-family:Georgia,serif;
-      font-size:21px;
-      font-weight:normal;
-      color:#7f2336;
-    ">
-      Adres e-mail
-    </h2>
+                  <!-- Nagłówek: adres e-mail -->
+                  <h2 style="
+                    margin:25px 0 12px;
+                    text-align:center;
+                    font-family:Georgia,serif;
+                    font-size:21px;
+                    font-weight:normal;
+                    color:#000000;
+                  ">
+                    Adres e-mail
+                  </h2>
 
-    <!-- Chmurka: sam adres e-mail -->
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
-      style="
-        background-color:#f9f6f0;
-        border:1px solid #e9e1d5;
-      ">
-      <tr>
-        <td style="
-          padding:18px 26px;
-          text-align:left;
-          font-size:15px;
-          line-height:1.6;
-        ">
-          <a href="mailto:${safeEmail}" style="
-            color:#7f2336;
-            text-decoration:none;
-          ">${safeEmail}</a>
-        </td>
-      </tr>
-    </table>
+                  <!-- Chmurka: sam adres e-mail -->
+                  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
+                    style="
+                      background-color:#f9f6f0;
+                      border:1px solid #e9e1d5;
+                    ">
+                    <tr>
+                      <td style="
+                        padding:18px 26px;
+                        text-align:center;
+                        font-family:Arial,Helvetica,sans-serif;
+                        font-size:15px;
+                        line-height:1.6;
+                        color:#000000;
+                      ">
+                        <span style="
+                          color:#000000;
+                          text-decoration:none;
+                          pointer-events:none;
+                        ">${safeEmail}</span>
+                      </td>
+                    </tr>
+                  </table>
 
-    <!-- Nagłówek: treść zapytania -->
-    <h2 style="
-      margin:35px 0 15px;
-      text-align:left;
-      font-family:Georgia,serif;
-      font-size:21px;
-      font-weight:normal;
-      color:#7f2336;
-    ">
-      Treść zapytania
-    </h2>
+                  <!-- Nagłówek: treść zapytania -->
+                  <h2 style="
+                    margin:35px 0 15px;
+                    text-align:center;
+                    font-family:Georgia,serif;
+                    font-size:21px;
+                    font-weight:normal;
+                    color:#000000;
+                  ">
+                    Treść zapytania
+                  </h2>
 
-    <!-- Chmurka: treść zapytania -->
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
-      style="
-        border:1px solid #e9e1d5;
-        background-color:#f9f6f0;
-      ">
-      <tr>
-        <td align="left" style="
-          padding:25px 26px;
-          text-align:left;
-          font-size:14px;
-          line-height:1.6;
-          color:#574e4e;
-          white-space:pre-wrap;
-          overflow-wrap:anywhere;
-        ">${safeMessage}</td>
-      </tr>
-    </table>
-</td>
-</tr>
+                  <!-- Chmurka: treść zapytania -->
+                  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
+                    style="
+                      border:1px solid #e9e1d5;
+                      background-color:#f9f6f0;
+                    ">
+                    <tr>
+                      <td align="left" style="
+                        padding:25px 26px;
+                        text-align:left;
+                        font-family:Arial,Helvetica,sans-serif;
+                        font-size:14px;
+                        line-height:1.6;
+                        color:#574e4e;
+                        white-space:pre-wrap;
+                        overflow-wrap:anywhere;
+                      ">${safeMessage}</td>
+                    </tr>
+                  </table>
+
+                  <!-- Przycisk odpowiedzi -->
+                  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                    <tr>
+                      <td align="center" style="padding:30px 0 5px;">
+
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                          <tr>
+                            <td align="center" style="
+                              background-color:#7f2336;
+                              border-radius:3px;
+                            ">
+                              <a href="mailto:${safeEmail}"
+                                style="
+                                  display:inline-block;
+                                  padding:15px 30px;
+                                  font-family:Arial,Helvetica,sans-serif;
+                                  font-size:14px;
+                                  font-weight:bold;
+                                  color:#ffffff;
+                                  text-decoration:none;
+                                ">
+                                Odpowiedz na wiadomość
+                              </a>
+                            </td>
+                          </tr>
+                        </table>
+
+                      </td>
+                    </tr>
+                  </table>
+
+                </td>
+              </tr>
 
               <!-- Stopka z informacją o formularzu -->
               <tr>
@@ -212,7 +247,7 @@ function buildContactEmail({ name, email, message }) {
                     line-height:1.8;
                     color:#6f5b2f;
                   ">
-                    Nowa wiadomość pochodzi z formularza kontaktowego na stronie internetowej.
+                    Nowa wiadomość pochodzi z formularza kontaktowego na stronie wladyslawski.pl.
                   </p>
 
                 </td>
