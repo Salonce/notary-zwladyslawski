@@ -1,3 +1,4 @@
+
 ---
 import TitleDivider from './shared/TitleDivider.astro';
 ---
@@ -18,11 +19,11 @@ import TitleDivider from './shared/TitleDivider.astro';
 
       <p class="mx-auto mt-6 max-w-2xl font-main-body text-[15px] leading-[1.8] text-stone-500 md:text-[16px]">
         Zasady przetwarzania oraz ochrony danych osobowych przekazywanych w związku
-        z korzystaniem ze strony internetowej oraz formularza kontaktowego Kancelarii Notarialnej Zbigniewa Władysławskiego.
+        z korzystaniem ze strony internetowej oraz formularza kontaktowego kancelarii notarialnej Zbigniewa Władysławskiego.
       </p>
     </header>
 
-    <div class="privacy-content mx-auto mt-14 max-w-3xl space-y-[72px] font-main-body text-[15px] leading-[1.85] text-stone-600 md:text-[16px]">
+    <div class="privacy-content mx-auto mt-24 max-w-3xl space-y-[72px] font-main-body text-[15px] leading-[1.85] text-stone-600 md:text-[16px]">
 
       <section>
         <h2 class="privacy-heading">§ 1. Administrator danych osobowych</h2>
@@ -142,6 +143,29 @@ import TitleDivider from './shared/TitleDivider.astro';
       </section>
 
     </div>
+
+    <div class="privacy-return-wrap">
+      <a href="/" class="privacy-return-link">
+        <span class="privacy-return-icon" aria-hidden="true">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M19 12H5" />
+            <path d="m12 19-7-7 7-7" />
+          </svg>
+        </span>
+
+        <span class="privacy-return-label">
+          Powrót do strony głównej
+        </span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -196,9 +220,222 @@ import TitleDivider from './shared/TitleDivider.astro';
     margin-bottom: 0;
   }
 
+  /* =========================================
+     PRZYCISK POWROTU — EFEKTY JAK W NAVBARZE
+     ========================================= */
+
+  .privacy-return-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 76px auto 20px;
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .privacy-return-link {
+    position: relative;
+    isolation: isolate;
+    box-sizing: border-box;
+
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    padding: 0 30px;
+
+    overflow: hidden;
+
+    background: var(--brand-burgundy);
+    border: 1px solid rgba(var(--brand-gold-rgb), 0.65);
+    border-radius: 999px;
+
+    color: #f7f3eb;
+    font-family: var(--font-top-navbar);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.045em;
+
+    text-decoration: none;
+    white-space: nowrap;
+
+    transition:
+      color 250ms ease,
+      border-color 250ms ease,
+      box-shadow 250ms ease,
+      transform 250ms ease;
+  }
+
+  .privacy-return-link span {
+    text-shadow: none;
+  }
+
+  .privacy-return-icon {
+    display: flex;
+    width: 18px;
+    height: 18px;
+
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--brand-gold);
+
+    transition:
+      color 250ms ease,
+      transform 250ms ease;
+  }
+
+  .privacy-return-icon svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+    filter: none;
+  }
+
+  .privacy-return-label {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Złota linia pod napisem */
+
+  .privacy-return-label::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -5px;
+
+    height: 1px;
+    border-radius: 999px;
+
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(var(--brand-gold-rgb), 0.9) 22%,
+      var(--brand-gold) 50%,
+      rgba(var(--brand-gold-rgb), 0.9) 78%,
+      transparent
+    );
+
+    box-shadow: 0 0 3px rgba(var(--brand-gold-rgb), 0.16);
+
+    transform: scaleX(0);
+    transform-origin: center;
+
+    transition:
+      transform 280ms cubic-bezier(0.2, 0.75, 0.25, 1);
+  }
+
+  /* HOVER — URZĄDZENIA Z MYSZĄ */
+
+  @media (hover: hover) and (pointer: fine) {
+    .privacy-return-link:hover {
+      color: var(--brand-gold);
+      border-color: var(--brand-gold);
+      box-shadow: 0 0 12px rgba(var(--brand-gold-rgb), 0.18);
+      transform: translateY(-1px);
+    }
+
+    .privacy-return-link:hover .privacy-return-icon {
+      color: var(--brand-gold);
+      transform: translateX(-3px);
+    }
+
+    .privacy-return-link:hover .privacy-return-label::after {
+      transform: scaleX(1);
+    }
+  }
+
+  /* DOTYK */
+
+  @media (hover: none), (pointer: coarse) {
+    .privacy-return-link {
+      transition:
+        color 120ms ease,
+        border-color 120ms ease;
+    }
+
+    .privacy-return-link:active {
+      color: var(--brand-gold);
+      border-color: var(--brand-gold);
+    }
+
+    .privacy-return-link:active .privacy-return-icon {
+      color: var(--brand-gold);
+    }
+  }
+
+  /* FOCUS — DOSTĘPNOŚĆ */
+
+  .privacy-return-link:focus-visible {
+    outline: 2px solid var(--brand-gold);
+    outline-offset: 4px;
+  }
+
+  /* RESPONSYWNOŚĆ */
+
   @media (min-width: 768px) {
     .privacy-heading {
       font-size: 17px;
+    }
+
+    .privacy-return-link {
+      gap: 11px;
+      padding-inline: 30px;
+      font-size: 14px;
+    }
+
+    .privacy-return-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .privacy-return-icon svg {
+      width: 17px;
+      height: 17px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .privacy-return-link {
+      font-size: 15px;
+      letter-spacing: 0.05em;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .privacy-return-link {
+      gap: 8px;
+      padding-inline: 22px;
+      font-size: 12px;
+      letter-spacing: 0.025em;
+    }
+
+    .privacy-return-icon {
+      width: 17px;
+      height: 17px;
+    }
+
+    .privacy-return-icon svg {
+      width: 15px;
+      height: 15px;
+    }
+  }
+
+  /* OGRANICZENIE ANIMACJI */
+
+  @media (prefers-reduced-motion: reduce) {
+    .privacy-return-link,
+    .privacy-return-link *,
+    .privacy-return-link *::before,
+    .privacy-return-link *::after {
+      transition: none !important;
+      animation: none !important;
+      transform: none !important;
     }
   }
 </style>

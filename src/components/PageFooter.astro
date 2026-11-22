@@ -27,6 +27,13 @@
           Kancelaria Notarialna<br />
           Zbigniew Władysławski Notariusz
         </p>
+
+        <a
+          href="/polityka-prywatnosci"
+          class="privacy-policy-link mt-2 font-main-body text-[11px] font-normal tracking-[0.04em] xxs:text-[12px]"
+        >
+          Polityka prywatności
+        </a>
       </div>
 
       <!-- PRAWA STRONA — WYKONAWCA -->
@@ -58,6 +65,30 @@
 
 <style>
   /* ========================================
+     LINK — POLITYKA PRYWATNOŚCI
+  ======================================== */
+
+  .privacy-policy-link {
+    color: #78716c;
+    text-decoration: underline;
+    text-decoration-color: rgba(var(--brand-gold-rgb), 0.45);
+    text-underline-offset: 4px;
+    transition:
+      color 300ms ease,
+      text-decoration-color 300ms ease;
+  }
+
+  .privacy-policy-link:hover {
+    color: var(--brand-gold-dark);
+    text-decoration-color: var(--brand-gold-dark);
+  }
+
+  .privacy-policy-link:focus-visible {
+    outline: 2px solid var(--brand-gold-dark);
+    outline-offset: 4px;
+  }
+
+  /* ========================================
      ANIMACJA STOPKI
      Taka sama zasada jak w "Przed wizytą"
   ======================================== */
@@ -81,6 +112,10 @@
     .copyright-animated {
       opacity: 1;
       transform: none;
+      transition: none;
+    }
+
+    .privacy-policy-link {
       transition: none;
     }
   }
