@@ -2,14 +2,17 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import TopBar from "../components/TopBar.astro";
-import HeroSection from "../components/HeroSection.astro";
 import PrivacyNavbar from "../components/PrivacyNavbar.astro";
 import PrivacyPolicy from "../components/PrivacyPolicy.astro";
 import "../styles/global.css";
+import PageFooter from "../components/PageFooter.astro";
+import SectionDivider from "../components/shared/SectionDivider.astro";
 ---
 
 <Layout>
   <TopBar />
   <PrivacyNavbar />
   <PrivacyPolicy />
+  <SectionDivider />
+  <PageFooter />
 </Layout>
