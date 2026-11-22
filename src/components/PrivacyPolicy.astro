@@ -4,14 +4,11 @@ import TitleDivider from './shared/TitleDivider.astro';
 
 <section
   id="polityka-prywatnosci"
-  class="w-full scroll-mt-28 px-6 py-16 md:px-8 md:py-24"
+  class="w-full scroll-mt-28 px-6 pt-16 pb-8 md:px-8 md:pt-24 md:pb-12"
 >
   <div class="mx-auto max-w-4xl">
     <header class="text-center">
-      <p class="mb-3 font-main-body text-xs font-semibold uppercase tracking-[0.2em] text-stone-500">
-        Dokumentacja RODO
-      </p>
-      <h1 class="font-main-heading text-[32px] font-normal tracking-wide text-black md:text-[42px]">
+      <h1 class="font-main-heading text-[32px] font-normal tracking-wide text-black md:text-[40px]">
         Polityka prywatności
       </h1>
 
@@ -21,25 +18,25 @@ import TitleDivider from './shared/TitleDivider.astro';
 
       <p class="mx-auto mt-6 max-w-2xl font-main-body text-[15px] leading-[1.8] text-stone-500 md:text-[16px]">
         Zasady przetwarzania oraz ochrony danych osobowych przekazywanych w związku
-        z korzystaniem ze strony internetowej oraz formularza kontaktowego Kancelarii Notarialnej.
+        z korzystaniem ze strony internetowej oraz formularza kontaktowego Kancelarii Notarialnej Zbigniewa Władysławskiego.
       </p>
     </header>
 
-    <div class="privacy-content mx-auto mt-14 max-w-3xl space-y-10 font-main-body text-[15px] leading-[1.85] text-stone-600 md:text-[16px]">
-      
+    <div class="privacy-content mx-auto mt-14 max-w-3xl space-y-[72px] font-main-body text-[15px] leading-[1.85] text-stone-600 md:text-[16px]">
+
       <section>
         <h2 class="privacy-heading">§ 1. Administrator danych osobowych</h2>
         <p>
           Administratorem Państwa danych osobowych jest
-          <strong>[IMIĘ I NAZWISKO NOTARIUSZA]</strong>, prowadzący/a działalność
-          w formie Kancelarii Notarialnej pod adresem:
-          <strong>[ADRES KANCELARII]</strong>.
+          <strong> Zbigniew Władysławski</strong>, prowadzący działalność gospodarczą
+          pod firmą <strong>Kancelaria Notarialna Zbigniew Władysławski Notariusz </strong>
+          pod adresem:<strong> 10-540 Olsztyn, ul. Dąbrowszczaków 21 lok. 3</strong>.
         </p>
         <p>
           W sprawach związanych z ochroną danych osobowych mogą się Państwo
           kontaktować z Administratorem drogą elektroniczną pod adresem:
-          <strong>[ADRES E-MAIL]</strong> lub telefonicznie pod numerem:
-          <strong>[NUMER TELEFONU]</strong>.
+          <strong> notariusz@wladyslawski.pl</strong> lub telefonicznie pod numerem:
+          <strong> 89 527 38 39</strong>.
         </p>
       </section>
 
@@ -47,9 +44,9 @@ import TitleDivider from './shared/TitleDivider.astro';
         <h2 class="privacy-heading">§ 2. Cele, zakres oraz podstawy prawne przetwarzania</h2>
         <p>
           W ramach korzystania z formularza kontaktowego dostępnego na stronie internetowej
-          Administrator przetwarza dane osobowe w zakresie: <strong>imienia, adresu poczty elektronicznej (e-mail)</strong>
-          oraz <strong>treści wiadomości</strong>. Podanie danych jest dobrowolne, jednak niezbędne do
-          przyjęcia korespondencji i udzielenia odpowiedzi.
+          Administrator przetwarza dane osobowe w zakresie: <strong>imienia, adresu poczty elektronicznej (e-mail),
+          numeru telefonu (jeżeli został podany)</strong> oraz <strong>treści wiadomości</strong>. Podanie danych
+          jest dobrowolne, jednak niezbędne do przyjęcia korespondencji i udzielenia odpowiedzi.
         </p>
         <ul class="privacy-list">
           <li>
@@ -65,6 +62,10 @@ import TitleDivider from './shared/TitleDivider.astro';
             ustawy z dnia 14 lutego 1991 r. – Prawo o notariacie (art. 6 ust. 1 lit. c RODO).
           </li>
         </ul>
+        <p>
+          Państwa dane osobowe nie będą wykorzystywane do zautomatyzowanego podejmowania decyzji,
+          w tym do profilowania.
+        </p>
       </section>
 
       <section>
@@ -127,10 +128,10 @@ import TitleDivider from './shared/TitleDivider.astro';
       <section>
         <h2 class="privacy-heading">§ 7. Pliki cookies i logi serwera</h2>
         <p>
-          Strona internetowa Kancelarii wykorzystuje wyłącznie niezbędne mechanizmy techniczne
-          (tzw. pliki cookies o charakterze technicznym), konieczne do zapewnienia jej prawidłowego
-          wyświetlania, stabilności oraz bezpieczeństwa przesyłania formularza. Serwis nie stosuje
-          plików cookies w celach reklamowych ani profilujących.
+          Strona internetowa Kancelarii ma charakter informacyjny i nie wykorzystuje plików cookies
+          w celach reklamowych, analitycznych ani profilujących. Ewentualne mechanizmy techniczne
+          (niezbędne pliki cookies) mogą być wykorzystywane wyłącznie w zakresie koniecznym do
+          zapewnienia prawidłowego funkcjonowania, wydajności i bezpieczeństwa serwisu.
         </p>
         <p>
           Korzystanie ze strony wiąże się z automatycznym zapisywaniem w logach serwera podstawowych
@@ -146,19 +147,19 @@ import TitleDivider from './shared/TitleDivider.astro';
 
 <style>
   .privacy-heading {
-    margin-bottom: 14px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #e7e5e4; /* stone-200 */
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e7e5e4;
     color: #000000;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 700;
-    letter-spacing: 0.08em;
-    line-height: 1.5;
+    letter-spacing: 0.07em;
+    line-height: 1.6;
     text-transform: uppercase;
   }
 
   .privacy-content p {
-    margin-bottom: 14px;
+    margin-bottom: 18px;
   }
 
   .privacy-content p:last-child {
@@ -166,32 +167,38 @@ import TitleDivider from './shared/TitleDivider.astro';
   }
 
   .privacy-content strong {
-    color: #44403c; /* stone-700 */
+    color: #44403c;
     font-weight: 600;
   }
 
   .privacy-list {
-    margin-top: 10px;
-    margin-bottom: 14px;
+    margin-top: 16px;
+    margin-bottom: 18px;
     padding-left: 1.25rem;
     list-style-type: none;
   }
 
   .privacy-list li {
     position: relative;
-    margin-bottom: 10px;
-    padding-left: 6px;
+    margin-bottom: 16px;
+    padding-left: 8px;
   }
 
   .privacy-list li::before {
     content: "—";
     position: absolute;
     left: -1.25rem;
-    color: #78716c; /* stone-500 */
+    color: #78716c;
     font-weight: 400;
   }
 
   .privacy-list li:last-child {
     margin-bottom: 0;
+  }
+
+  @media (min-width: 768px) {
+    .privacy-heading {
+      font-size: 17px;
+    }
   }
 </style>
