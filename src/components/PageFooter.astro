@@ -3,15 +3,18 @@
 ---
 
 <!-- COPYRIGHT + WYKONAWCA -->
-<footer class="copyright-section w-full px-3 pt-2 pb-2 sm:px-4">
+<footer
+  class="copyright-section copyright-animated w-full px-3 pt-2 pb-2 sm:px-4"
+  data-copyright-section
+>
   <div
-    class="mx-auto max-w-7xl rounded-lg border border-[var(--brand-gold)]/45 bg-[#eee7d8] px-4 py-4 shadow-[0_2px_12px_rgba(80,70,50,0.06)] xxs:px-5 xxs:py-4 sm:px-8 sm:py-5"
+    class="copyright-card mx-auto max-w-7xl rounded-lg border border-[var(--brand-gold)]/45 bg-[#eee7d8] px-4 py-4 shadow-[0_2px_12px_rgba(80,70,50,0.06)] xxs:px-5 xxs:py-4 sm:px-8 sm:py-5"
   >
     <div
       class="flex flex-col items-center justify-between gap-7 text-center sm:flex-row sm:items-start sm:gap-6 sm:text-left"
     >
       <!-- LEWA STRONA — KANCELARIA -->
-      <div class="flex min-w-0 flex-col items-center sm:items-start">
+      <div class="copyright-office flex min-w-0 flex-col items-center sm:items-start">
         <p
           class="font-main-body text-[9px] font-normal uppercase tracking-[0.25em] text-stone-400 xxs:text-[10px] xxs:tracking-[0.28em]"
         >
@@ -28,7 +31,7 @@
 
       <!-- PRAWA STRONA — WYKONAWCA -->
       <div
-        class="mt-1 flex min-w-0 flex-col items-center sm:mt-0 sm:items-end"
+        class="copyright-author mt-1 flex min-w-0 flex-col items-center sm:mt-0 sm:items-end"
       >
         <p
           class="font-main-body text-[9px] font-normal uppercase tracking-[0.25em] text-stone-400 xxs:text-[10px] xxs:tracking-[0.28em]"
@@ -52,3 +55,65 @@
     </div>
   </div>
 </footer>
+
+<style>
+  /* ========================================
+     ANIMACJA STOPKI
+     Taka sama zasada jak w "Przed wizytą"
+  ======================================== */
+
+  .copyright-animated {
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity 600ms ease,
+      transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* STAN WIDOCZNY */
+  .copyright-animated.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* REDUKCJA ANIMACJI */
+  @media (prefers-reduced-motion: reduce) {
+    .copyright-animated {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const copyrightSection = document.querySelector<HTMLElement>(
+    '[data-copyright-section]'
+  );
+
+  if (copyrightSection) {
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    );
+
+    if (prefersReducedMotion.matches) {
+      copyrightSection.classList.add('is-visible');
+    } else {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) return;
+
+          requestAnimationFrame(() => {
+            copyrightSection.classList.add('is-visible');
+            observer.disconnect();
+          });
+        },
+        {
+          threshold: 0.15,
+        }
+      );
+
+      observer.observe(copyrightSection);
+    }
+  }
+</script>

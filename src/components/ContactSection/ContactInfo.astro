@@ -285,27 +285,30 @@ import TitleDivider from '../shared/TitleDivider.astro';
 </style>
 
 <script>
-  const contactInfoSection = document.querySelector(
+  const contactInfoSection = document.querySelector<HTMLElement>(
     '[data-contact-info-section]',
   );
 
+  // Animacja sekcji
   if (contactInfoSection) {
     const prefersReducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)',
     );
 
-    if (prefersReducedMotion.matches) {
+    if (
+      prefersReducedMotion.matches ||
+      !('IntersectionObserver' in window)
+    ) {
       contactInfoSection.classList.add('is-visible');
     } else {
       const observer = new IntersectionObserver(
         ([entry]) => {
-          if (!entry.isIntersecting) return;
+          if (!entry?.isIntersecting) return;
 
           requestAnimationFrame(() => {
             contactInfoSection.classList.add('is-visible');
+            observer.disconnect();
           });
-
-          observer.disconnect();
         },
         {
           threshold: 0.15,

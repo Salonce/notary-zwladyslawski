@@ -3,16 +3,16 @@
 ---
 
 <!-- MOTTO -->
-<!-- MOTTO -->
 <section
   id="motto"
-  class="scroll-mt-24 w-full min-w-0 overflow-visible pt-20 pb-20 md:pt-24 md:pb-24"
+  class="motto-section scroll-mt-24 w-full min-w-0 overflow-visible pt-20 pb-20 md:pt-24 md:pb-24"
+  data-motto-section
 >
   <div class="mx-auto w-full min-w-0 px-3 text-center sm:px-6 md:px-10">
 
     <!-- GÓRNY ORNAMENT -->
     <div
-      class="motto-ornament mx-auto flex w-full max-w-xl min-w-0 items-center justify-center gap-2 sm:gap-3"
+      class="motto-ornament motto-ornament-top mx-auto flex w-full max-w-xl min-w-0 items-center justify-center gap-2 sm:gap-3"
       aria-hidden="true"
     >
       <div class="flex min-w-0 flex-1 items-center justify-end">
@@ -44,7 +44,7 @@
 
     <!-- NAPIS -->
     <p
-      class="latin-quote mx-auto my-6 w-full min-w-0 whitespace-normal break-words font-motto text-[clamp(14px,4.3vw,25px)] leading-relaxed tracking-[0.06em] sm:whitespace-nowrap sm:text-[25px] md:my-7 md:text-[34px] lg:text-[38px]"
+      class="latin-quote motto-quote mx-auto my-6 w-full min-w-0 whitespace-normal break-words font-motto text-[clamp(14px,4.3vw,25px)] leading-relaxed tracking-[0.06em] sm:whitespace-nowrap sm:text-[25px] md:my-7 md:text-[34px] lg:text-[38px]"
       aria-label="LEX EST QUOD NOTAMUS"
     >
       <span>L</span><span>E</span><span>X</span>
@@ -92,6 +92,10 @@
 </section>
 
 <style>
+  /* ========================================
+     ORYGINALNE STYLE MOTTO
+  ======================================== */
+
   .latin-quote {
     position: relative;
     isolation: isolate;
@@ -167,4 +171,97 @@
       0 4px 7px rgba(78, 56, 17, 0.38),
       0 7px 10px rgba(78, 56, 17, 0.14);
   }
+
+  /* ========================================
+     ANIMACJA MOTTO
+     Taka sama zasada jak w "Przed wizytą"
+  ======================================== */
+
+  /* GÓRNY ORNAMENT */
+  .motto-ornament-top {
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity 600ms ease,
+      transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* NAPIS */
+  .motto-quote {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 800ms ease,
+      transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: 140ms;
+  }
+
+  /* DOLNY ORNAMENT */
+  .motto-ornament-bottom {
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity 600ms ease,
+      transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: 280ms;
+  }
+
+  /* STAN WIDOCZNY */
+  .motto-section.is-visible .motto-ornament-top {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .motto-section.is-visible .motto-quote {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .motto-section.is-visible .motto-ornament-bottom {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* REDUKCJA ANIMACJI */
+  @media (prefers-reduced-motion: reduce) {
+    .motto-ornament-top,
+    .motto-quote,
+    .motto-ornament-bottom {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
 </style>
+
+<script>
+  const mottoSection = document.querySelector<HTMLElement>(
+    '[data-motto-section]'
+  );
+
+  if (mottoSection) {
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    );
+
+    if (prefersReducedMotion.matches) {
+      mottoSection.classList.add('is-visible');
+    } else {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) return;
+
+          requestAnimationFrame(() => {
+            mottoSection.classList.add('is-visible');
+            observer.disconnect();
+          });
+        },
+        {
+          threshold: 0.15,
+        }
+      );
+
+      observer.observe(mottoSection);
+    }
+  }
+</script>

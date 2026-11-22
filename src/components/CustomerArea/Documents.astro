@@ -39,7 +39,8 @@ const documents = [
     subtitle: 'POL / ANG / UKR',
     href: '/documents/zgoda-na-podroz-maloletniego-dziecka-en_pl_ua.docx',
     filename: 'zgoda-na-podroz-maloletniego-dziecka-en_pl_ua.docx',
-    ariaLabel: 'Pobierz zgodę na wyjazd dziecka za granicę w językach polskim, angielskim i ukraińskim',
+    ariaLabel:
+      'Pobierz zgodę na wyjazd dziecka za granicę w językach polskim, angielskim i ukraińskim',
     action: 'Pobierz',
     type: 'download',
   },
@@ -48,7 +49,8 @@ const documents = [
     subtitle: 'POL / ANG / RU',
     href: '/documents/zgoda-na-podroz-maloletniego-dziecka-en_pl_ru.docx',
     filename: 'zgoda-na-podroz-maloletniego-dziecka-en_pl_ru.docx',
-    ariaLabel: 'Pobierz zgodę na wyjazd dziecka za granicę w językach polskim, angielskim i rosyjskim',
+    ariaLabel:
+      'Pobierz zgodę na wyjazd dziecka za granicę w językach polskim, angielskim i rosyjskim',
     action: 'Pobierz',
     type: 'download',
   },
@@ -63,8 +65,10 @@ const documents = [
 ];
 ---
 
-<section class="documents content-column">
-
+<section
+  class="documents content-column"
+  data-documents-section
+>
   <!-- HEADER -->
   <div class="text-center">
     <h2
@@ -83,8 +87,9 @@ const documents = [
     class="documents-intro mx-auto mt-7 max-w-3xl text-justify font-main-body text-[17px] leading-[1.85] text-stone-600 md:mt-8 md:text-[18px] md:leading-[1.9]"
   >
     <p>
-      Poniżej udostępniamy dokumenty pomocne w przygotowaniu do wybranych czynności notarialnych.
-      Ich zakres zależy od okoliczności konkretnej sprawy.
+      Poniżej udostępniamy dokumenty pomocne w przygotowaniu do wybranych
+      czynności notarialnych. Ich zakres zależy od okoliczności konkretnej
+      sprawy.
     </p>
   </div>
 
@@ -143,9 +148,21 @@ const documents = [
           <!-- ACTION -->
           <a
             href={document.href}
-            download={document.type === 'download' ? document.filename : undefined}
-            target={document.type === 'external' ? '_blank' : undefined}
-            rel={document.type === 'external' ? 'noopener noreferrer' : undefined}
+            download={
+              document.type === 'download'
+                ? document.filename
+                : undefined
+            }
+            target={
+              document.type === 'external'
+                ? '_blank'
+                : undefined
+            }
+            rel={
+              document.type === 'external'
+                ? 'noopener noreferrer'
+                : undefined
+            }
             aria-label={document.ariaLabel}
             class="button-accent inline-flex shrink-0 items-center gap-1.5 rounded-md border px-2.5 py-1.5 font-main-body text-[9px] uppercase tracking-[0.13em] no-underline md:px-3"
           >
@@ -161,13 +178,19 @@ const documents = [
                 class="h-3.5 w-3.5"
                 aria-hidden="true"
               >
-                <path stroke-linecap="round" d="M12 3v11" />
+                <path
+                  stroke-linecap="round"
+                  d="M12 3v11"
+                />
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   d="m7 10 5 5 5-5"
                 />
-                <path stroke-linecap="round" d="M5 20h14" />
+                <path
+                  stroke-linecap="round"
+                  d="M5 20h14"
+                />
               </svg>
             ) : (
               <svg
@@ -203,21 +226,30 @@ const documents = [
   </div>
 
   <!-- CLOSING TEXT -->
-  <div class="documents-closing mx-auto mt-6 max-w-3xl pt-1 font-main-body">
-    <p class="text-justify text-[17px] leading-[1.85] md:text-[18px] md:leading-[1.9]">
-      Zachęcamy do pobrania, uzupełnienia i odesłania dokumentów na adres e-mail kancelarii.
-      Pozwoli to na wcześniejsze przygotowanie czynności i sprawniejszą wizytę.
+  <div
+    class="documents-closing mx-auto mt-6 max-w-3xl pt-1 font-main-body"
+  >
+    <p
+      class="text-justify text-[17px] leading-[1.85] md:text-[18px] md:leading-[1.9]"
+    >
+      Zachęcamy do pobrania, uzupełnienia i odesłania dokumentów na
+      adres e-mail kancelarii. Pozwoli to na wcześniejsze przygotowanie
+      czynności i sprawniejszą wizytę.
     </p>
   </div>
 
   <!-- INFORMATION -->
-  <div class="documents-information mx-auto mt-3 max-w-3xl font-main-body">
-    <p class="text-justify text-[17px] leading-[1.85] md:text-[18px] md:leading-[1.9]">
-      Informacje o dokumentach wymaganych do pozostałych czynności uzyskają Państwo w kancelarii,
-      telefonicznie lub drogą elektroniczną, po przedstawieniu okoliczności sprawy.
+  <div
+    class="documents-information mx-auto mt-3 max-w-3xl font-main-body"
+  >
+    <p
+      class="text-justify text-[17px] leading-[1.85] md:text-[18px] md:leading-[1.9]"
+    >
+      Informacje o dokumentach wymaganych do pozostałych czynności
+      uzyskają Państwo w kancelarii, telefonicznie lub drogą
+      elektroniczną, po przedstawieniu okoliczności sprawy.
     </p>
   </div>
-
 </section>
 
 <style>
@@ -240,64 +272,85 @@ const documents = [
     flex-shrink: 0;
   }
 
-  /* ANIMACJE */
-  .documents-title,
-  .documents-divider,
-  .documents-intro,
-  .documents-list,
-  .documents-closing,
-  .documents-information {
-    animation: documents-enter 650ms ease both;
-  }
-
+  /* ANIMACJA TYTUŁU */
   .documents-title {
-    animation-duration: 800ms;
-    animation-delay: 0ms;
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 800ms ease,
+      transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
+  /* ANIMACJA DIVIDERA */
   .documents-divider {
-    animation: documents-divider-enter 900ms cubic-bezier(0.22, 1, 0.36, 1) 250ms both;
+    opacity: 0;
+    transform: scaleX(0);
     transform-origin: center;
+    transition:
+      opacity 500ms ease 250ms,
+      transform 900ms cubic-bezier(0.22, 1, 0.36, 1) 250ms;
   }
 
+  /* ANIMACJA WSTĘPU */
   .documents-intro {
-    animation-delay: 120ms;
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity 600ms ease,
+      transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: 140ms;
   }
 
+  /* ANIMACJA LISTY DOKUMENTÓW */
   .documents-list {
-    animation-delay: 210ms;
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity 600ms ease,
+      transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: 140ms;
   }
 
+  /* ANIMACJA TEKSTU KOŃCOWEGO */
   .documents-closing {
-    animation-delay: 300ms;
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity 600ms ease,
+      transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: 240ms;
   }
 
+  /* ANIMACJA INFORMACJI */
   .documents-information {
-    animation-delay: 390ms;
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity 600ms ease,
+      transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: 340ms;
   }
 
-  @keyframes documents-enter {
-    from {
-      opacity: 0;
-      transform: translateY(6px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* STAN WIDOCZNY */
+  .documents.is-visible .documents-title {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  @keyframes documents-divider-enter {
-    from {
-      opacity: 0;
-      transform: scaleX(0);
-    }
-    to {
-      opacity: 1;
-      transform: scaleX(1);
-    }
+  .documents.is-visible .documents-divider {
+    opacity: 1;
+    transform: scaleX(1);
   }
 
+  .documents.is-visible .documents-intro,
+  .documents.is-visible .documents-list,
+  .documents.is-visible .documents-closing,
+  .documents.is-visible .documents-information {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* REDUKCJA ANIMACJI */
   @media (prefers-reduced-motion: reduce) {
     .documents-title,
     .documents-divider,
@@ -305,9 +358,41 @@ const documents = [
     .documents-list,
     .documents-closing,
     .documents-information {
-      animation: none;
       opacity: 1;
       transform: none;
+      transition: none;
     }
   }
 </style>
+
+<script>
+  const documentsSection = document.querySelector<HTMLElement>(
+    '[data-documents-section]'
+  );
+
+  if (documentsSection) {
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    );
+
+    if (prefersReducedMotion.matches) {
+      documentsSection.classList.add('is-visible');
+    } else {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) return;
+
+          requestAnimationFrame(() => {
+            documentsSection.classList.add('is-visible');
+            observer.disconnect();
+          });
+        },
+        {
+          threshold: 0.15,
+        }
+      );
+
+      observer.observe(documentsSection);
+    }
+  }
+</script>
