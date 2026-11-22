@@ -18,12 +18,23 @@ import TitleDivider from '../shared/TitleDivider.astro';
     </div>
   </div>
 
+  <!-- OSTRZEŻENIE NAD FORMULARZEM -->
+
+
+
+<p class="mx-auto mt-6 max-w-xl font-main-body text-[12px] leading-5 text-stone-500 md:mt-8">
+  Formularz służy do wstępnego kontaktu. Prosimy o niepodawanie numerów PESEL ani nieprzesyłanie skanów dokumentów i innych poufnych danych. W razie potrzeby prosimy o kontakt z Kancelarią drogą mailową.
+</p>
+
+
+
+
   <!-- FORM -->
   <form
     id="contact-form"
     aria-labelledby="contact-form-title"
     novalidate
-    class="contact-form-body mx-auto mt-10 w-full max-w-xl space-y-5 font-main-body md:mt-12 md:space-y-6"
+    class="contact-form-body mx-auto mt-6 w-full max-w-xl space-y-5 font-main-body md:mt-8 md:space-y-6"
   >
     <!-- HONEYPOT -->
     <div class="honeypot" aria-hidden="true">
@@ -145,87 +156,20 @@ import TitleDivider from '../shared/TitleDivider.astro';
       ></p>
     </div>
 
-    {/* INFORMACJA O PRYWATNOŚCI */}
-<details class="pt-1 font-main-body text-[12px] leading-5 text-stone-500">
-  <summary class="w-fit cursor-pointer underline underline-offset-4 hover:text-stone-700">
-    Informacja o przetwarzaniu danych osobowych
-  </summary>
 
-  <div class="mt-3 space-y-2">
-    <p>
-      Administratorem Państwa danych osobowych jest Kancelaria Notarialna
-      Zbigniewa Władysławskiego, [pełny adres kancelarii].
-      Kontakt z administratorem: [adres e-mail kancelarii].
-    </p>
+  <p class="pt-1 font-main-body text-[12px] leading-5 text-stone-500">
+    Pola oznaczone symbolem{" "}
+    <span aria-hidden="true" class="text-red-700">*</span>
+    {" "}są wymagane. Szczegółowe informacje dotyczące przetwarzania danych
+    osobowych znajdują się w naszej{" "}
+    <a
+      href="/polityka-prywatnosci"
+      class="underline underline-offset-4 transition-colors hover:text-stone-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand-gold-dark)]"
+    >
+      polityce prywatności
+    </a>.
+  </p>
 
-    <p>
-      Dane osobowe podane w formularzu, w szczególności imię i nazwisko,
-      adres e-mail oraz treść wiadomości, będą przetwarzane w celu
-      obsługi zapytania i prowadzenia korespondencji.
-      Podstawą prawną przetwarzania jest art. 6 ust. 1 lit. f RODO
-      (prawnie uzasadniony interes administratora polegający na obsłudze
-      korespondencji) lub – jeżeli zapytanie dotyczy podjęcia działań
-      przed zawarciem umowy na Państwa żądanie – art. 6 ust. 1 lit. b RODO.
-    </p>
-
-    <p>
-      Dane mogą być przekazywane podmiotom świadczącym na rzecz
-      administratora usługi poczty elektronicznej, hostingu i obsługi
-      informatycznej, w tym firmie Plus Five Five, Inc. (Resend),
-      która przetwarza dane jako podmiot przetwarzający w celu
-      technicznej obsługi i dostarczenia wiadomości e-mail.
-    </p>
-
-    <p>
-      W związku z korzystaniem z usługi Resend dane mogą być przekazywane
-      do Stanów Zjednoczonych. Transfer odbywa się z zastosowaniem
-      odpowiednich zabezpieczeń prawnych, w szczególności standardowych
-      klauzul umownych. Więcej informacji można znaleźć w
-      <a
-        href="https://resend.com/security/gdpr"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="underline underline-offset-2 hover:text-stone-700"
-      >
-        informacjach Resend dotyczących RODO
-      </a>.
-    </p>
-
-    <p>
-      Dane będą przechowywane przez okres niezbędny do obsługi zapytania
-      i prowadzenia korespondencji, a następnie przez okres wymagany
-      przepisami prawa lub niezbędny do ustalenia, dochodzenia
-      lub obrony ewentualnych roszczeń.
-    </p>
-
-    <p>
-      Przysługuje Państwu prawo dostępu do danych, ich sprostowania,
-      usunięcia lub ograniczenia przetwarzania, a w przypadku
-      przetwarzania opartego na prawnie uzasadnionym interesie –
-      prawo wniesienia sprzeciwu. Przysługuje Państwu również prawo
-      wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych.
-    </p>
-
-    <p>
-      Podanie danych jest dobrowolne, ale niezbędne do otrzymania
-      odpowiedzi na zapytanie. Dane nie będą wykorzystywane do
-      zautomatyzowanego podejmowania decyzji ani profilowania.
-    </p>
-  </div>
-</details>
-
-    <!-- INFORMACJA O POLACH WYMAGANYCH -->
-    <p class="font-main-body text-[12px] leading-5 text-stone-500">
-      Pola oznaczone symbolem{" "}
-      <span aria-hidden="true" class="text-red-700">*</span>
-      {" "}są wymagane.
-    </p>
-
-    <!-- OSTRZEŻENIE O DANYCH -->
-    <p class="font-main-body text-[12px] leading-5 text-stone-500">
-      Prosimy o nieprzesyłanie w formularzu numerów PESEL, skanów
-      dokumentów ani innych poufnych informacji.
-    </p>
 
     <!-- KOMUNIKAT O SUKCESIE -->
     <div
@@ -365,7 +309,6 @@ import TitleDivider from '../shared/TitleDivider.astro';
 </style>
 
 <script>
-
 import { sendEmail } from '../../lib/mail';
 
 const TIMEOUT = 15000;
