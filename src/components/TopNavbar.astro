@@ -40,10 +40,7 @@ const navItems = [
 ---
 
 <nav class="navbar" aria-label="Nawigacja główna">
-  <!-- Dekoracyjne tło -->
-  <div class="navbar-decoration navbar-decoration-left" aria-hidden="true"></div>
-  <div class="navbar-decoration navbar-decoration-right" aria-hidden="true"></div>
-  <div class="navbar-center-line" aria-hidden="true"></div>
+  <!-- ZŁOTE LINIE DEKORACYJNE -->
   <div class="navbar-top-line" aria-hidden="true"></div>
   <div class="navbar-bottom-line" aria-hidden="true"></div>
 
@@ -309,38 +306,8 @@ const navItems = [
   }
 
   /* =========================================
-     DEKORACYJNE TŁO
+     ZŁOTE LINIE GÓRNA I DOLNA
      ========================================= */
-
-  .navbar-decoration {
-    position: absolute;
-    top: 50%;
-    width: 380px;
-    height: 150px;
-    border: 1px solid rgba(var(--brand-gold-rgb), 0.1);
-    border-radius: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-  }
-
-  .navbar-decoration-left {
-    left: -96px;
-  }
-
-  .navbar-decoration-right {
-    right: -96px;
-  }
-
-  .navbar-center-line {
-    position: absolute;
-    top: 50%;
-    left: 5%;
-    right: 5%;
-    height: 1px;
-    background: rgba(var(--brand-gold-rgb), 0.07);
-    transform: translateY(-50%);
-    pointer-events: none;
-  }
 
   .navbar-top-line,
   .navbar-bottom-line {
@@ -756,8 +723,6 @@ const navItems = [
       width: 16px;
       height: 16px;
     }
-
-    
   }
 
   /* =========================================
