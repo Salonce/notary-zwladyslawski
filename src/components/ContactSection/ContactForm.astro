@@ -19,15 +19,9 @@ import TitleDivider from '../shared/TitleDivider.astro';
   </div>
 
   <!-- OSTRZEŻENIE NAD FORMULARZEM -->
-
-
-
-<p class="mx-auto mt-6 max-w-xl font-main-body text-[12px] leading-5 text-stone-500 md:mt-8">
-  Formularz na stronie służy do wstępnego kontaktu. Prosimy o niepodawanie w tym miejscu numerów PESEL ani nieprzesyłanie skanów dokumentów i innych poufnych danych.
-</p>
-
-
-
+  <p class="contact-form-warning mx-auto mt-6 max-w-xl font-main-body text-[12px] leading-5 text-stone-500 md:mt-8">
+    Formularz na stronie służy do wstępnego kontaktu. Prosimy o niepodawanie w tym miejscu numerów PESEL ani nieprzesyłanie skanów dokumentów i innych poufnych danych.
+  </p>
 
   <!-- FORM -->
   <form
@@ -156,20 +150,18 @@ import TitleDivider from '../shared/TitleDivider.astro';
       ></p>
     </div>
 
-
-  <p class="pt-1 font-main-body text-[12px] leading-5 text-stone-500">
-    Pola oznaczone symbolem{" "}
-    <span aria-hidden="true" class="text-red-700">*</span>
-    {" "}są wymagane. Szczegółowe informacje dotyczące przetwarzania danych
-    osobowych znajdują się w naszej{" "}
-    <a
-      href={`${import.meta.env.BASE_URL}polityka-prywatnosci/`}
-      class="underline underline-offset-4 transition-colors hover:text-stone-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand-gold-dark)]"
-    >
-      polityce prywatności
-    </a>.
-  </p>
-
+    <p class="pt-1 font-main-body text-[12px] leading-5 text-stone-500">
+      Pola oznaczone symbolem{" "}
+      <span aria-hidden="true" class="text-red-700">*</span>
+      {" "}są wymagane. Szczegółowe informacje dotyczące przetwarzania danych
+      osobowych znajdują się w naszej{" "}
+      <a
+        href={`${import.meta.env.BASE_URL}polityka-prywatnosci/`}
+        class="underline underline-offset-4 transition-colors hover:text-stone-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand-gold-dark)]"
+      >
+        polityce prywatności
+      </a>.
+    </p>
 
     <!-- KOMUNIKAT O SUKCESIE -->
     <div
@@ -249,6 +241,15 @@ import TitleDivider from '../shared/TitleDivider.astro';
       transform 900ms cubic-bezier(0.22, 1, 0.36, 1) 250ms;
   }
 
+  .contact-form-warning {
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity 600ms ease,
+      transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: 140ms;
+  }
+
   .contact-form-body {
     opacity: 0;
     transform: translateY(6px);
@@ -266,6 +267,11 @@ import TitleDivider from '../shared/TitleDivider.astro';
   .contact-form.is-visible .contact-form-divider {
     opacity: 1;
     transform: scaleX(1);
+  }
+
+  .contact-form.is-visible .contact-form-warning {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .contact-form.is-visible .contact-form-body {
@@ -300,6 +306,7 @@ import TitleDivider from '../shared/TitleDivider.astro';
   @media (prefers-reduced-motion: reduce) {
     .contact-form-title,
     .contact-form-divider,
+    .contact-form-warning,
     .contact-form-body {
       opacity: 1;
       transform: none;
