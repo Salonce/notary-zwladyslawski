@@ -247,7 +247,7 @@ function buildContactEmail({ name, email, message }) {
                     line-height:1.8;
                     color:#6f5b2f;
                   ">
-                    Nowa wiadomość pochodzi z formularza kontaktowego na stronie wladyslawski.pl.
+                    Nowa wiadomość pochodzi z formularza kontaktowego na stronie notariusz.wladyslawski.pl.
                   </p>
 
                 </td>
