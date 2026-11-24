@@ -1,4 +1,3 @@
-
 // @ts-check
 /// <reference types="node" />
 
@@ -13,6 +12,8 @@ export default defineConfig({
     : 'https://notariusz.wladyslawski.pl',
 
   base: isDemo ? '/notary-zwladyslawski' : '/',
+
+  trailingSlash: 'always',
 
   vite: {
     plugins: [tailwindcss()]
