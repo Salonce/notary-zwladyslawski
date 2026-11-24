@@ -40,11 +40,10 @@ const navItems = [
 ---
 
 <nav class="navbar" aria-label="Nawigacja główna">
-  <!-- ZŁOTE LINIE DEKORACYJNE -->
   <div class="navbar-top-line" aria-hidden="true"></div>
   <div class="navbar-bottom-line" aria-hidden="true"></div>
 
-  <!-- Nawigacja mobilna: poniżej 390 px -->
+  <!-- MOBILE -->
   <div class="mobile-navigation">
     <button
       type="button"
@@ -126,7 +125,7 @@ const navItems = [
     </div>
   </div>
 
-  <!-- Nawigacja desktopowa: od 390 px -->
+  <!-- DESKTOP -->
   <div class="desktop-navigation">
     {navItems.map((item, index) => (
       <a
@@ -161,11 +160,13 @@ const navItems = [
           ) : item.id === 'strefa-klienta' ? (
             <>
               <span class="label-small">Klient</span>
+              <span class="label-medium">Klient</span>
               <span class="label-large">Strefa klienta</span>
             </>
           ) : item.id === 'home' ? (
             <>
               <span class="label-small">Start</span>
+              <span class="label-medium">Start</span>
               <span class="label-large">Strona główna</span>
             </>
           ) : (
@@ -235,7 +236,6 @@ const navItems = [
       if (isMobileLink) {
         setMobileMenuOpen(false);
 
-        // Najpierw zamykamy menu, potem obliczamy pozycję sekcji.
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             section.scrollIntoView({
@@ -254,14 +254,12 @@ const navItems = [
       history.replaceState(null, '', `#${sectionId}`);
     });
 
-    // Zamknięcie menu klawiszem Escape.
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
         setMobileMenuOpen(false);
       }
     });
 
-    // Zamknięcie menu po przejściu do widoku desktopowego.
     const desktopMedia = window.matchMedia('(min-width: 390px)');
 
     desktopMedia.addEventListener('change', (event) => {
@@ -273,10 +271,6 @@ const navItems = [
 </script>
 
 <style>
-  /* =========================================
-     NAVBAR — PODSTAWY
-     ========================================= */
-
   .navbar {
     --menu-toggle-color-transition: 250ms ease;
 
@@ -305,9 +299,7 @@ const navItems = [
     filter: none;
   }
 
-  /* =========================================
-     ZŁOTE LINIE GÓRNA I DOLNA
-     ========================================= */
+  /* GOLD DECORATIVE LINES */
 
   .navbar-top-line,
   .navbar-bottom-line {
@@ -328,9 +320,7 @@ const navItems = [
     background: rgba(var(--brand-gold-rgb), 0.45);
   }
 
-  /* =========================================
-     MOBILE
-     ========================================= */
+  /* MOBILE */
 
   .mobile-navigation {
     position: relative;
@@ -392,7 +382,7 @@ const navItems = [
     color: var(--brand-gold);
   }
 
-  /* Hamburger → X */
+  /* HAMBURGER TO X */
 
   .menu-toggle-icon path {
     transform-box: fill-box;
@@ -425,9 +415,7 @@ const navItems = [
     );
   }
 
-  /* =========================================
-     MOBILE — ROZWIJANE MENU
-     ========================================= */
+  /* MOBILE MENU PANEL */
 
   .menu-panel {
     max-height: 0;
@@ -509,9 +497,7 @@ const navItems = [
     transition: color 250ms ease;
   }
 
-  /* =========================================
-     DESKTOP / TABLET
-     ========================================= */
+  /* DESKTOP / TABLET */
 
   .desktop-navigation {
     position: relative;
@@ -595,19 +581,20 @@ const navItems = [
     transform: scaleX(1);
   }
 
+  /* LABEL VISIBILITY */
+
   .label-small,
   .label-medium,
   .label-large {
     display: none;
   }
 
+  /* 390px–767px */
   .label-small {
     display: inline;
   }
 
-  /* =========================================
-     RESPONSYWNOŚĆ
-     ========================================= */
+  /* RESPONSIVE */
 
   @media (min-width: 375px) {
     .menu-toggle {
@@ -639,6 +626,7 @@ const navItems = [
     }
   }
 
+  /* 390px+ */
   @media (min-width: 390px) {
     .mobile-navigation {
       display: none;
@@ -657,10 +645,10 @@ const navItems = [
     }
   }
 
+  /* 768px–1023px */
   @media (min-width: 768px) {
     .desktop-link {
       padding-inline: 12px;
-      font-size: 14px;
     }
 
     .desktop-link-content {
@@ -682,6 +670,7 @@ const navItems = [
     }
   }
 
+  /* 1024px+ */
   @media (min-width: 1024px) {
     .desktop-link {
       padding-inline: 24px;
@@ -725,9 +714,7 @@ const navItems = [
     }
   }
 
-  /* =========================================
-     HOVER — URZĄDZENIA Z MYSZĄ
-     ========================================= */
+  /* HOVER — MOUSE DEVICES */
 
   @media (hover: hover) and (pointer: fine) {
     .menu-toggle:hover {
@@ -757,9 +744,7 @@ const navItems = [
     }
   }
 
-  /* =========================================
-     DOTYK
-     ========================================= */
+  /* TOUCH DEVICES */
 
   @media (hover: none), (pointer: coarse) {
     .desktop-link {
@@ -807,9 +792,7 @@ const navItems = [
     }
   }
 
-  /* =========================================
-     FOCUS — DOSTĘPNOŚĆ
-     ========================================= */
+  /* ACCESSIBILITY */
 
   .navbar a:focus-visible,
   .navbar button:focus-visible {
@@ -817,9 +800,7 @@ const navItems = [
     outline-offset: 3px;
   }
 
-  /* =========================================
-     ANIMACJE
-     ========================================= */
+  /* ANIMATIONS */
 
   @keyframes navbar-item-in {
     from {
