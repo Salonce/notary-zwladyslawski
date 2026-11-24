@@ -1,7 +1,6 @@
-
 ---
 /* =========================================
-   PRELOAD FONTÓW PIERWSZEGO EKRANU
+   PRELOAD FONTÓW
    ========================================= */
 
 import merriweatherLatin400 from '@fontsource/merriweather/files/merriweather-latin-400-normal.woff2?url';
@@ -9,6 +8,12 @@ import merriweatherLatinExt400 from '@fontsource/merriweather/files/merriweather
 
 import interLatin400 from '@fontsource/inter/files/inter-latin-400-normal.woff2?url';
 import interLatinExt400 from '@fontsource/inter/files/inter-latin-ext-400-normal.woff2?url';
+
+import interLatin600 from '@fontsource/inter/files/inter-latin-600-normal.woff2?url';
+import interLatinExt600 from '@fontsource/inter/files/inter-latin-ext-600-normal.woff2?url';
+
+import interLatin700 from '@fontsource/inter/files/inter-latin-700-normal.woff2?url';
+import interLatinExt700 from '@fontsource/inter/files/inter-latin-ext-700-normal.woff2?url';
 
 /* =========================================
    MERRIWEATHER
@@ -22,6 +27,7 @@ import '@fontsource/merriweather/500.css';
    ========================================= */
 
 import '@fontsource/inter/400.css';
+import '@fontsource/inter/600.css';
 import '@fontsource/inter/700.css';
 
 /* =========================================
@@ -58,7 +64,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
     <link
       rel="icon"
       type="image/png"
-      href={`${import.meta.env.BASE_URL}/assets/ZW.png?v=2`}
+      href={`${import.meta.env.BASE_URL}assets/ZW.png?v=2`}
     />
 
     <!-- =====================================
@@ -96,6 +102,46 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
     <link
       rel="preload"
       href={interLatinExt400}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <!-- =====================================
+         PRELOAD INTER 600
+         ===================================== -->
+
+    <link
+      rel="preload"
+      href={interLatin600}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <link
+      rel="preload"
+      href={interLatinExt600}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <!-- =====================================
+         PRELOAD INTER 700
+         ===================================== -->
+
+    <link
+      rel="preload"
+      href={interLatin700}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <link
+      rel="preload"
+      href={interLatinExt700}
       as="font"
       type="font/woff2"
       crossorigin
