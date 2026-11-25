@@ -9,12 +9,6 @@ const title = 'Nie znaleziono strony | Kancelaria Notarialna Zbigniew Władysła
   <main class="error-page">
     <section class="error-content" aria-labelledby="error-heading">
 
-      <div class="error-decoration" aria-hidden="true">
-        <span class="decoration-line"></span>
-        <span class="decoration-diamond"></span>
-        <span class="decoration-line"></span>
-      </div>
-
       <span class="error-code">404</span>
 
       <p class="error-eyebrow">
@@ -30,34 +24,28 @@ const title = 'Nie znaleziono strony | Kancelaria Notarialna Zbigniew Władysła
         została przeniesiona lub jej adres jest nieprawidłowy.
       </p>
 
-      <div class="error-actions">
-        <a href="/" class="button-primary">
-          <span>Wróć na stronę główną</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.7"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M5 12h14" />
-            <path d="m12 5 7 7-7 7" />
-          </svg>
-        </a>
+      <div class="error-return-wrap">
+        <a href={import.meta.env.BASE_URL} class="error-return-link">
+          <span class="error-return-icon" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M19 12H5" />
+              <path d="m12 19-7-7 7-7" />
+            </svg>
+          </span>
 
-        <a href="/#kontakt" class="button-secondary">
-          Skontaktuj się z kancelarią
+          <span class="error-return-label">
+            Powrót do strony głównej
+          </span>
         </a>
       </div>
-
-      <p class="error-help">
-        Jeśli potrzebujesz pomocy, zapraszamy do kontaktu.
-      </p>
 
       <div class="error-decoration bottom-decoration" aria-hidden="true">
         <span class="decoration-line"></span>
@@ -92,31 +80,6 @@ const title = 'Nie znaleziono strony | Kancelaria Notarialna Zbigniew Władysła
     max-width: 760px;
     margin: 0 auto;
     text-align: center;
-  }
-
-  /* Dekoracyjne separatory */
-
-  .error-decoration {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 32px;
-  }
-
-  .decoration-line {
-    display: block;
-    width: 55px;
-    height: 1px;
-    background: rgba(var(--brand-gold-rgb), 0.8);
-  }
-
-  .decoration-diamond {
-    display: block;
-    width: 7px;
-    height: 7px;
-    background: var(--brand-gold);
-    transform: rotate(45deg);
   }
 
   /* Numer błędu */
@@ -168,87 +131,193 @@ const title = 'Nie znaleziono strony | Kancelaria Notarialna Zbigniew Władysła
     color: var(--text-secondary);
   }
 
-  /* Przyciski */
+  /* =========================================
+     PRZYCISK POWROTU — STYL JAK W POLITYCE
+     ========================================= */
 
-  .error-actions {
+  .error-return-wrap {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: center;
+    margin: 36px auto 20px;
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .error-return-link {
+    position: relative;
+    isolation: isolate;
+    box-sizing: border-box;
+
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    padding: 0 30px;
+
+    overflow: hidden;
+
+    background: var(--brand-burgundy);
+    border: 1px solid rgba(var(--brand-gold-rgb), 0.65);
+    border-radius: 999px;
+
+    color: #f7f3eb;
+    font-family: var(--font-top-navbar);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.045em;
+
+    text-decoration: none;
+    white-space: nowrap;
+
+    transition:
+      color 250ms ease,
+      border-color 250ms ease,
+      box-shadow 250ms ease,
+      transform 250ms ease;
+  }
+
+  .error-return-link span {
+    text-shadow: none;
+  }
+
+  .error-return-icon {
+    display: flex;
+    width: 18px;
+    height: 18px;
+
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--brand-gold);
+
+    transition:
+      color 250ms ease,
+      transform 250ms ease;
+  }
+
+  .error-return-icon svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+    filter: none;
+  }
+
+  .error-return-label {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Złota linia pod napisem */
+
+  .error-return-label::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -5px;
+
+    height: 1px;
+    border-radius: 999px;
+
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(var(--brand-gold-rgb), 0.9) 22%,
+      var(--brand-gold) 50%,
+      rgba(var(--brand-gold-rgb), 0.9) 78%,
+      transparent
+    );
+
+    box-shadow: 0 0 3px rgba(var(--brand-gold-rgb), 0.16);
+
+    transform: scaleX(0);
+    transform-origin: center;
+
+    transition:
+      transform 280ms cubic-bezier(0.2, 0.75, 0.25, 1);
+  }
+
+  /* HOVER — URZĄDZENIA Z MYSZĄ */
+
+  @media (hover: hover) and (pointer: fine) {
+    .error-return-link:hover {
+      color: var(--brand-gold);
+      border-color: var(--brand-gold);
+      box-shadow: 0 0 12px rgba(var(--brand-gold-rgb), 0.18);
+      transform: translateY(-1px);
+    }
+
+    .error-return-link:hover .error-return-icon {
+      color: var(--brand-gold);
+      transform: translateX(-3px);
+    }
+
+    .error-return-link:hover .error-return-label::after {
+      transform: scaleX(1);
+    }
+  }
+
+  /* DOTYK */
+
+  @media (hover: none), (pointer: coarse) {
+    .error-return-link {
+      transition:
+        color 120ms ease,
+        border-color 120ms ease;
+    }
+
+    .error-return-link:active {
+      color: var(--brand-gold);
+      border-color: var(--brand-gold);
+    }
+
+    .error-return-link:active .error-return-icon {
+      color: var(--brand-gold);
+    }
+  }
+
+  /* FOCUS — DOSTĘPNOŚĆ */
+
+  .error-return-link:focus-visible {
+    outline: 2px solid var(--brand-gold);
+    outline-offset: 4px;
+  }
+
+  /* OZDOBNIK */
+
+  .error-decoration {
+    display: flex;
     justify-content: center;
     align-items: center;
     gap: 14px;
-    margin-top: 36px;
+    margin-bottom: 32px;
   }
 
-  .button-primary,
-  .button-secondary {
-    box-sizing: border-box;
-    min-height: 52px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 23px;
-    font-family: var(--font-main-body);
-    font-size: 13px;
-    font-weight: var(--weight-medium);
-    letter-spacing: 0.015em;
-    text-decoration: none;
-    transition:
-      background-color 220ms ease,
-      border-color 220ms ease,
-      color 220ms ease,
-      transform 220ms ease;
+  .decoration-line {
+    display: block;
+    width: 55px;
+    height: 1px;
+    background: rgba(var(--brand-gold-rgb), 0.8);
   }
 
-  .button-primary {
-    border: 1px solid var(--brand-burgundy);
-    background: var(--brand-burgundy);
-    color: #fff;
+  .decoration-diamond {
+    display: block;
+    width: 7px;
+    height: 7px;
+    background: var(--brand-gold);
+    transform: rotate(45deg);
   }
-
-  .button-primary:hover {
-    background: var(--brand-burgundy-soft);
-    border-color: var(--brand-burgundy-soft);
-    transform: translateY(-2px);
-  }
-
-  .button-primary svg {
-    transition: transform 220ms ease;
-  }
-
-  .button-primary:hover svg {
-    transform: translateX(3px);
-  }
-
-  .button-secondary {
-    border: 1px solid rgba(var(--brand-gold-rgb), 0.75);
-    background: var(--button-surface);
-    color: var(--brand-gold-dark);
-  }
-
-  .button-secondary:hover {
-    border-color: var(--brand-gold);
-    background: #e9ddbf;
-    color: var(--brand-gold-dark);
-  }
-
-  /* Dodatkowa informacja */
-
-  .error-help {
-    margin: 24px 0 0;
-    font-family: var(--font-main-body);
-    font-size: 12px;
-    line-height: 1.7;
-    color: var(--text-secondary);
-    opacity: 0.8;
-  }
-
-  /* Podpis kancelarii */
 
   .bottom-decoration {
     margin-top: 45px;
     margin-bottom: 25px;
   }
+
+  /* PODPIS KANCELARII */
 
   .error-signature {
     margin: 0;
@@ -272,7 +341,7 @@ const title = 'Nie znaleziono strony | Kancelaria Notarialna Zbigniew Władysła
     color: var(--brand-gold-dark);
   }
 
-  /* Tablety */
+  /* TABLETY */
 
   @media (max-width: 767px) {
     .error-page {
@@ -289,16 +358,39 @@ const title = 'Nie znaleziono strony | Kancelaria Notarialna Zbigniew Władysła
     }
   }
 
-  /* Telefony */
+  /* RESPONSYWNOŚĆ PRZYCISKU */
+
+  @media (min-width: 768px) {
+    .error-return-link {
+      gap: 11px;
+      padding-inline: 30px;
+      font-size: 14px;
+    }
+
+    .error-return-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .error-return-icon svg {
+      width: 17px;
+      height: 17px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .error-return-link {
+      font-size: 15px;
+      letter-spacing: 0.05em;
+    }
+  }
+
+  /* TELEFONY */
 
   @media (max-width: 480px) {
     .error-page {
       min-height: 60vh;
       padding: 65px 20px 75px;
-    }
-
-    .error-decoration {
-      margin-bottom: 25px;
     }
 
     .error-code {
@@ -325,19 +417,25 @@ const title = 'Nie znaleziono strony | Kancelaria Notarialna Zbigniew Władysła
       line-height: 1.8;
     }
 
-    .error-actions {
-      flex-direction: column;
-      align-items: stretch;
+    .error-return-wrap {
       margin-top: 28px;
-      gap: 12px;
     }
 
-    .button-primary,
-    .button-secondary {
-      width: 100%;
-      min-height: 50px;
-      padding: 13px 15px;
+    .error-return-link {
+      gap: 8px;
+      padding-inline: 22px;
       font-size: 12px;
+      letter-spacing: 0.025em;
+    }
+
+    .error-return-icon {
+      width: 17px;
+      height: 17px;
+    }
+
+    .error-return-icon svg {
+      width: 15px;
+      height: 15px;
     }
 
     .bottom-decoration {
@@ -345,7 +443,7 @@ const title = 'Nie znaleziono strony | Kancelaria Notarialna Zbigniew Władysła
     }
   }
 
-  /* Bardzo wąskie telefony */
+  /* BARDZO WĄSKIE TELEFONY */
 
   @media (max-width: 359px) {
     .error-code {
@@ -362,13 +460,16 @@ const title = 'Nie znaleziono strony | Kancelaria Notarialna Zbigniew Władysła
     }
   }
 
-  /* Ograniczenie animacji dla użytkowników, którzy tego potrzebują */
+  /* OGRANICZENIE ANIMACJI */
 
   @media (prefers-reduced-motion: reduce) {
-    .button-primary,
-    .button-secondary,
-    .button-primary svg {
-      transition: none;
+    .error-return-link,
+    .error-return-link *,
+    .error-return-link *::before,
+    .error-return-link *::after {
+      transition: none !important;
+      animation: none !important;
+      transform: none !important;
     }
   }
 </style>
