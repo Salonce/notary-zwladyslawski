@@ -141,7 +141,6 @@ body {
 
 .font-main-body {
   font-family: var(--font-main-body);
-  font-weight: var(--weight-regular);
   color: var(--text-secondary);
 }
 
