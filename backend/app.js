@@ -24,7 +24,8 @@ function escapeHtml(value = '') {
 function buildContactEmail({ name, email, message }) {
   const safeName = escapeHtml(name);
   const safeEmail = escapeHtml(email);
-  const safeMessage = escapeHtml(message);
+  // <br> zamiast white-space:pre-wrap, bo np. Outlook ignoruje pre-wrap
+  const safeMessage = escapeHtml(message).replace(/\r?\n/g, '<br>');
 
   return `
     <!DOCTYPE html>
@@ -161,7 +162,6 @@ function buildContactEmail({ name, email, message }) {
                         <span style="
                           color:#000000;
                           text-decoration:none;
-                          pointer-events:none;
                         ">${safeEmail}</span>
                       </td>
                     </tr>
@@ -193,8 +193,8 @@ function buildContactEmail({ name, email, message }) {
                         font-size:14px;
                         line-height:1.6;
                         color:#574e4e;
-                        white-space:pre-wrap;
                         overflow-wrap:anywhere;
+                        word-break:break-word;
                       ">${safeMessage}</td>
                     </tr>
                   </table>
@@ -274,8 +274,24 @@ function buildContactEmail({ name, email, message }) {
 // 2. APLIKACJA EXPRESS
 // =========================================
 
-export function createApp({ resendClient } = {}) {
+// Wyklucza spacje, @ oraz znaki <>"' (dodatkowa ochrona przed wstrzykiwaniem do HTML)
+const EMAIL_REGEX = /^[^\s@<>"']+@[^\s@<>"']+\.[^\s@<>"']+$/;
+
+export function createApp({
+  resendClient,
+  allowedOrigin = process.env.ALLOWED_ORIGIN,
+} = {}) {
+  // Bez tego `cors` z origin: undefined przepuszcza wszystkie originy
+  if (!allowedOrigin) {
+    throw new Error('Missing ALLOWED_ORIGIN configuration.');
+  }
+
   const app = express();
+
+  // Aplikacja stoi za proxy (Render, Railway, Nginx, Cloudflare...),
+  // więc bez tego req.ip to adres proxy, a nie użytkownika.
+  // Liczba = ile proxy jest przed aplikacją. Można nadpisać zmienną TRUST_PROXY.
+  app.set('trust proxy', Number(process.env.TRUST_PROXY ?? 1));
 
   // Produkcja: prawdziwy klient Resend.
   // Testy: możliwość wstrzyknięcia klienta testowego.
@@ -289,7 +305,7 @@ export function createApp({ resendClient } = {}) {
   app.use(helmet());
 
   app.use(cors({
-    origin: process.env.ALLOWED_ORIGIN,
+    origin: allowedOrigin,
     methods: ['POST', 'GET'],
     allowedHeaders: ['Content-Type'],
   }));
@@ -302,6 +318,13 @@ export function createApp({ resendClient } = {}) {
     limit: 5,
     standardHeaders: 'draft-8',
     legacyHeaders: false,
+    // Błędy walidacji (4xx/5xx) nie zużywają limitu
+    skipFailedRequests: true,
+    // Odpowiedź w JSON-ie, żeby front mógł ją normalnie sparsować
+    message: {
+      success: false,
+      message: 'Zbyt wiele prób. Spróbuj ponownie później.',
+    },
   });
 
   // =========================================
@@ -322,23 +345,40 @@ export function createApp({ resendClient } = {}) {
 
       // Honeypot: ciche odrzucenie botów
       if (typeof botcheck === 'string' && botcheck.trim() !== '') {
+        console.warn('Honeypot triggered from IP:', req.ip);
+
         return res.json({
           success: true,
           message: 'Wiadomość została wysłana.',
         });
       }
 
-      // Walidacja danych
+      // Walidacja typów
       if (
         typeof name !== 'string' ||
         typeof email !== 'string' ||
-        typeof message !== 'string' ||
-        name.trim().length < 2 ||
-        name.length > 100 ||
-        email.length > 254 ||
-        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) ||
-        message.trim().length < 10 ||
-        message.length > 5000
+        typeof message !== 'string'
+      ) {
+        return res.status(400).json({
+          success: false,
+          message: 'Prosimy sprawdzić poprawność formularza.',
+        });
+      }
+
+      // Czyszczenie danych raz, na początku.
+      // W imieniu usuwamy znaki nowej linii i tabulatory (ochrona tematu maila).
+      const cleanName = name.replace(/[\r\n\t]+/g, ' ').trim();
+      const cleanEmail = email.trim();
+      const cleanMessage = message.trim();
+
+      // Walidacja wartości po oczyszczeniu
+      if (
+        cleanName.length < 2 ||
+        cleanName.length > 100 ||
+        cleanEmail.length > 254 ||
+        !EMAIL_REGEX.test(cleanEmail) ||
+        cleanMessage.length < 10 ||
+        cleanMessage.length > 5000
       ) {
         return res.status(400).json({
           success: false,
@@ -364,24 +404,24 @@ export function createApp({ resendClient } = {}) {
       const { data, error } = await mailer.emails.send({
         from: process.env.MAIL_FROM,
         to: [process.env.MAIL_TO],
-        replyTo: email.trim(),
+        replyTo: cleanEmail,
 
-        subject: `Nowa wiadomość z formularza kontaktowego – ${name.trim()}`,
+        subject: `Nowa wiadomość z formularza kontaktowego – ${cleanName}`,
 
         // Wersja tekstowa
         text: [
-          `Imię i nazwisko: ${name.trim()}`,
-          `Adres e-mail: ${email.trim()}`,
+          `Imię i nazwisko: ${cleanName}`,
+          `Adres e-mail: ${cleanEmail}`,
           '',
           'Treść zapytania:',
-          message.trim(),
+          cleanMessage,
         ].join('\n'),
 
         // Wersja HTML w kolorach kancelarii
         html: buildContactEmail({
-          name: name.trim(),
-          email: email.trim(),
-          message: message.trim(),
+          name: cleanName,
+          email: cleanEmail,
+          message: cleanMessage,
         }),
       });
 
