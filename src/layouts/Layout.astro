@@ -16,6 +16,13 @@ import interLatin700 from '@fontsource/inter/files/inter-latin-700-normal.woff2?
 import interLatinExt700 from '@fontsource/inter/files/inter-latin-ext-700-normal.woff2?url';
 
 /* =========================================
+   EB GARAMOND 500 ITALIC
+   ========================================= */
+
+import ebGaramondLatin500Italic from '@fontsource/eb-garamond/files/eb-garamond-latin-500-italic.woff2?url';
+import ebGaramondLatinExt500Italic from '@fontsource/eb-garamond/files/eb-garamond-latin-ext-500-italic.woff2?url';
+
+/* =========================================
    MERRIWEATHER
    ========================================= */
 
@@ -29,6 +36,12 @@ import '@fontsource/merriweather/500.css';
 import '@fontsource/inter/400.css';
 import '@fontsource/inter/600.css';
 import '@fontsource/inter/700.css';
+
+/* =========================================
+   EB GARAMOND
+   ========================================= */
+
+import '@fontsource/eb-garamond/500-italic.css';
 
 /* =========================================
    PARISIENNE
@@ -49,13 +62,6 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!-- GOOGLE FONTS -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Crimson+Pro:wght@400;500;600;700&family=DM+Serif+Display&family=EB+Garamond:wght@400;500;600;700&family=GFS+Didot&family=Italiana&family=Libre+Baskerville:wght@400;700&family=Lora:wght@400;500;600;700&family=Marcellus&family=Playfair+Display:wght@400;500;600;700&family=Prata&family=Spectral:wght@400;500;600;700&display=swap" rel="stylesheet">
-
 
     <title>Kancelaria Notarialna w Olsztynie – Zbigniew Władysławski</title>
 
@@ -149,6 +155,26 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
     <link
       rel="preload"
       href={interLatinExt700}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <!-- =====================================
+         PRELOAD EB GARAMOND 500 ITALIC
+         ===================================== -->
+
+    <link
+      rel="preload"
+      href={ebGaramondLatin500Italic}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <link
+      rel="preload"
+      href={ebGaramondLatinExt500Italic}
       as="font"
       type="font/woff2"
       crossorigin
