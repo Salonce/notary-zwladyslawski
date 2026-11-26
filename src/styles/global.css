@@ -1,10 +1,8 @@
+
 @import "tailwindcss";
 
 /* =========================================
-   0. CZCIONKI ZASTĘPCZE (bez "skakania" tekstu)
-   Dopasowane wymiarami do właściwych czcionek,
-   więc po załadowaniu Merriweather/Inter tekst
-   praktycznie nie zmienia rozmiaru ani wysokości linii.
+   0. CZCIONKI ZASTĘPCZE
    ========================================= */
 
 @font-face {
@@ -44,6 +42,8 @@
 
 :root {
   /* Kolory */
+  --copyright-footer-bg: #eee7d8;
+
   --brand-burgundy: #7f2336;
   --brand-burgundy-soft: #862638;
   --brand-gold: #d5b77f;
@@ -52,7 +52,7 @@
   --brand-gold-motto: #a9822f;
   --button-surface: #f7f3eb;
 
-  /* Typografia (z dopasowanymi czcionkami zastępczymi) */
+  /* Typografia */
   --font-top-bar: "Merriweather", "Merriweather Fallback", Georgia, serif;
   --font-top-navbar: "Merriweather", "Merriweather Fallback", Georgia, serif;
   --font-main-heading: "Merriweather", "Merriweather Fallback", Georgia, serif;
@@ -78,7 +78,7 @@
   /* Odstępy */
   --section-gap: 128px;
 
-  /* Tło główne */
+  /* Tło główne strony */
   --background-main: linear-gradient(
     180deg,
     #f6f1e9 0%,
@@ -309,19 +309,5 @@ body {
   .font-main-heading {
     font-size: 1.65rem;
     line-height: 1.3;
-  }
-}
-
-/* =========================================
-   12. MIEJSCE NA FIXED FOOTER
-   ========================================= */
-
-body {
-  padding-bottom: 100px;
-}
-
-@media (min-width: 440px) {
-  body {
-    padding-bottom: 110px;
   }
 }
