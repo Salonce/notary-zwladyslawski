@@ -1,3 +1,4 @@
+
 import express from 'express';
 import { Resend } from 'resend';
 import dotenv from 'dotenv';
@@ -8,8 +9,21 @@ import rateLimit from 'express-rate-limit';
 dotenv.config();
 
 // =========================================
-// 1. SZABLON WIADOMOŚCI HTML
+// 1. KOLORY I SZABLON WIADOMOŚCI HTML
 // =========================================
+
+const COLORS = {
+  text: '#574e4e',
+  primary: '#292424',
+  burgundy: '#7f2336',
+  gold: '#d5b77f',
+  goldDark: '#6f5b2f',
+  fieldBackground: '#f9f6f0',
+  fieldBorder: '#e9e1d5',
+  pageBackground: '#f2ece1',
+  footerBackground: '#f6f1e9',
+  border: '#e5dccd',
+};
 
 function escapeHtml(value = '') {
   return String(value).replace(/[&<>"']/g, (char) => ({
@@ -24,7 +38,6 @@ function escapeHtml(value = '') {
 function buildContactEmail({ name, email, message }) {
   const safeName = escapeHtml(name);
   const safeEmail = escapeHtml(email);
-  // <br> zamiast white-space:pre-wrap, bo np. Outlook ignoruje pre-wrap
   const safeMessage = escapeHtml(message).replace(/\r?\n/g, '<br>');
 
   return `
@@ -40,9 +53,9 @@ function buildContactEmail({ name, email, message }) {
     <body style="
       margin:0;
       padding:35px 12px;
-      background-color:#f2ece1;
+      background-color:${COLORS.pageBackground};
       font-family:Arial,Helvetica,sans-serif;
-      color:#574e4e;
+      color:${COLORS.text};
     ">
 
       <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
@@ -53,12 +66,12 @@ function buildContactEmail({ name, email, message }) {
               style="
                 max-width:660px;
                 background-color:#ffffff;
-                border:1px solid #e5dccd;
+                border:1px solid ${COLORS.border};
               ">
 
               <!-- Górny pasek -->
               <tr>
-                <td height="6" style="background-color:#7f2336;"></td>
+                <td height="6" style="background-color:${COLORS.burgundy};"></td>
               </tr>
 
               <!-- Nagłówek -->
@@ -71,7 +84,7 @@ function buildContactEmail({ name, email, message }) {
                     font-size:12px;
                     letter-spacing:3px;
                     text-transform:uppercase;
-                    color:#6f5b2f;
+                    color:${COLORS.goldDark};
                   ">
                     Kancelaria Notarialna
                   </p>
@@ -82,14 +95,14 @@ function buildContactEmail({ name, email, message }) {
                     font-size:29px;
                     font-weight:normal;
                     line-height:1.35;
-                    color:#7f2336;
+                    color:${COLORS.burgundy};
                   ">
                     Nowa wiadomość
                   </h1>
 
                   <table role="presentation" width="55" cellspacing="0" cellpadding="0" border="0">
                     <tr>
-                      <td height="2" style="background-color:#d5b77f;"></td>
+                      <td height="2" style="background-color:${COLORS.gold};"></td>
                     </tr>
                   </table>
 
@@ -107,16 +120,16 @@ function buildContactEmail({ name, email, message }) {
                     font-family:Georgia,serif;
                     font-size:21px;
                     font-weight:normal;
-                    color:#000000;
+                    color:${COLORS.text};
                   ">
                     Imię i nazwisko
                   </h2>
 
-                  <!-- Chmurka: samo imię i nazwisko -->
+                  <!-- Chmurka: imię i nazwisko -->
                   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
                     style="
-                      background-color:#f9f6f0;
-                      border:1px solid #e9e1d5;
+                      background-color:${COLORS.fieldBackground};
+                      border:1px solid ${COLORS.fieldBorder};
                     ">
                     <tr>
                       <td style="
@@ -125,7 +138,7 @@ function buildContactEmail({ name, email, message }) {
                         font-family:Arial,Helvetica,sans-serif;
                         font-size:15px;
                         line-height:1.6;
-                        color:#000000;
+                        color:${COLORS.text};
                       ">
                         ${safeName}
                       </td>
@@ -139,16 +152,16 @@ function buildContactEmail({ name, email, message }) {
                     font-family:Georgia,serif;
                     font-size:21px;
                     font-weight:normal;
-                    color:#000000;
+                    color:${COLORS.text};
                   ">
                     Adres e-mail
                   </h2>
 
-                  <!-- Chmurka: sam adres e-mail -->
+                  <!-- Chmurka: adres e-mail -->
                   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
                     style="
-                      background-color:#f9f6f0;
-                      border:1px solid #e9e1d5;
+                      background-color:${COLORS.fieldBackground};
+                      border:1px solid ${COLORS.fieldBorder};
                     ">
                     <tr>
                       <td style="
@@ -157,10 +170,10 @@ function buildContactEmail({ name, email, message }) {
                         font-family:Arial,Helvetica,sans-serif;
                         font-size:15px;
                         line-height:1.6;
-                        color:#000000;
+                        color:${COLORS.text};
                       ">
                         <span style="
-                          color:#000000;
+                          color:${COLORS.text};
                           text-decoration:none;
                         ">${safeEmail}</span>
                       </td>
@@ -174,7 +187,7 @@ function buildContactEmail({ name, email, message }) {
                     font-family:Georgia,serif;
                     font-size:21px;
                     font-weight:normal;
-                    color:#000000;
+                    color:${COLORS.text};
                   ">
                     Treść zapytania
                   </h2>
@@ -182,8 +195,8 @@ function buildContactEmail({ name, email, message }) {
                   <!-- Chmurka: treść zapytania -->
                   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
                     style="
-                      border:1px solid #e9e1d5;
-                      background-color:#f9f6f0;
+                      border:1px solid ${COLORS.fieldBorder};
+                      background-color:${COLORS.fieldBackground};
                     ">
                     <tr>
                       <td align="left" style="
@@ -192,7 +205,7 @@ function buildContactEmail({ name, email, message }) {
                         font-family:Arial,Helvetica,sans-serif;
                         font-size:14px;
                         line-height:1.6;
-                        color:#574e4e;
+                        color:${COLORS.text};
                         overflow-wrap:anywhere;
                         word-break:break-word;
                       ">${safeMessage}</td>
@@ -207,7 +220,7 @@ function buildContactEmail({ name, email, message }) {
                         <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                           <tr>
                             <td align="center" style="
-                              background-color:#7f2336;
+                              background-color:${COLORS.burgundy};
                               border-radius:3px;
                             ">
                               <a href="mailto:${safeEmail}"
@@ -233,19 +246,19 @@ function buildContactEmail({ name, email, message }) {
                 </td>
               </tr>
 
-              <!-- Stopka z informacją o formularzu -->
+              <!-- Stopka -->
               <tr>
                 <td align="center" style="
                   padding:22px 25px;
-                  background-color:#f6f1e9;
-                  border-top:1px solid #e5dccd;
+                  background-color:${COLORS.footerBackground};
+                  border-top:1px solid ${COLORS.border};
                 ">
 
                   <p style="
                     margin:0;
                     font-size:11px;
                     line-height:1.8;
-                    color:#6f5b2f;
+                    color:${COLORS.goldDark};
                   ">
                     Nowa wiadomość pochodzi z formularza kontaktowego na stronie notariusz.wladyslawski.pl.
                   </p>
@@ -255,7 +268,7 @@ function buildContactEmail({ name, email, message }) {
 
               <!-- Dolny pasek -->
               <tr>
-                <td height="5" style="background-color:#7f2336;"></td>
+                <td height="5" style="background-color:${COLORS.burgundy};"></td>
               </tr>
 
             </table>
@@ -274,27 +287,23 @@ function buildContactEmail({ name, email, message }) {
 // 2. APLIKACJA EXPRESS
 // =========================================
 
-// Wyklucza spacje, @ oraz znaki <>"' (dodatkowa ochrona przed wstrzykiwaniem do HTML)
+// Walidacja adresu e-mail
 const EMAIL_REGEX = /^[^\s@<>"']+@[^\s@<>"']+\.[^\s@<>"']+$/;
 
 export function createApp({
   resendClient,
   allowedOrigin = process.env.ALLOWED_ORIGIN,
 } = {}) {
-  // Bez tego `cors` z origin: undefined przepuszcza wszystkie originy
   if (!allowedOrigin) {
     throw new Error('Missing ALLOWED_ORIGIN configuration.');
   }
 
   const app = express();
 
-  // Aplikacja stoi za proxy (Render, Railway, Nginx, Cloudflare...),
-  // więc bez tego req.ip to adres proxy, a nie użytkownika.
-  // Liczba = ile proxy jest przed aplikacją. Można nadpisać zmienną TRUST_PROXY.
+  // Konfiguracja proxy
   app.set('trust proxy', Number(process.env.TRUST_PROXY ?? 1));
 
-  // Produkcja: prawdziwy klient Resend.
-  // Testy: możliwość wstrzyknięcia klienta testowego.
+  // Klient Resend
   const mailer =
     resendClient ??
     (process.env.RESEND_API_KEY
@@ -318,9 +327,7 @@ export function createApp({
     limit: 5,
     standardHeaders: 'draft-8',
     legacyHeaders: false,
-    // Błędy walidacji (4xx/5xx) nie zużywają limitu
     skipFailedRequests: true,
-    // Odpowiedź w JSON-ie, żeby front mógł ją normalnie sparsować
     message: {
       success: false,
       message: 'Zbyt wiele prób. Spróbuj ponownie później.',
@@ -343,7 +350,7 @@ export function createApp({
     try {
       const { name, email, message, botcheck } = req.body ?? {};
 
-      // Honeypot: ciche odrzucenie botów
+      // Honeypot
       if (typeof botcheck === 'string' && botcheck.trim() !== '') {
         console.warn('Honeypot triggered from IP:', req.ip);
 
@@ -365,13 +372,12 @@ export function createApp({
         });
       }
 
-      // Czyszczenie danych raz, na początku.
-      // W imieniu usuwamy znaki nowej linii i tabulatory (ochrona tematu maila).
+      // Czyszczenie danych
       const cleanName = name.replace(/[\r\n\t]+/g, ' ').trim();
       const cleanEmail = email.trim();
       const cleanMessage = message.trim();
 
-      // Walidacja wartości po oczyszczeniu
+      // Walidacja wartości
       if (
         cleanName.length < 2 ||
         cleanName.length > 100 ||
@@ -417,7 +423,7 @@ export function createApp({
           cleanMessage,
         ].join('\n'),
 
-        // Wersja HTML w kolorach kancelarii
+        // Wersja HTML
         html: buildContactEmail({
           name: cleanName,
           email: cleanEmail,
