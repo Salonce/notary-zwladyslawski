@@ -1,4 +1,3 @@
-
 import express from 'express';
 import { Resend } from 'resend';
 import dotenv from 'dotenv';
@@ -282,7 +281,6 @@ function buildContactEmail({ name, email, message }) {
   `;
 }
 
-
 // =========================================
 // 2. APLIKACJA EXPRESS
 // =========================================
@@ -290,11 +288,20 @@ function buildContactEmail({ name, email, message }) {
 // Walidacja adresu e-mail
 const EMAIL_REGEX = /^[^\s@<>"']+@[^\s@<>"']+\.[^\s@<>"']+$/;
 
+function parseAllowedOrigins(rawOrigin) {
+  if (!rawOrigin) return [];
+  const list = Array.isArray(rawOrigin) ? rawOrigin : String(rawOrigin).split(',');
+  return list
+    .map((origin) => String(origin).trim().replace(/\/+$/, ''))
+    .filter(Boolean);
+}
+
 export function createApp({
   resendClient,
   allowedOrigin = process.env.ALLOWED_ORIGIN,
 } = {}) {
-  if (!allowedOrigin) {
+  const allowedOrigins = parseAllowedOrigins(allowedOrigin);
+  if (allowedOrigins.length === 0) {
     throw new Error('Missing ALLOWED_ORIGIN configuration.');
   }
 
@@ -313,11 +320,21 @@ export function createApp({
   // Zabezpieczenia
   app.use(helmet());
 
-  app.use(cors({
-    origin: allowedOrigin,
-    methods: ['POST', 'GET'],
-    allowedHeaders: ['Content-Type'],
-  }));
+  app.use(
+    cors({
+      origin(origin, callback) {
+        // Zezwalaj na żądania bez nagłówka Origin (np. curl, healthcheck)
+        if (!origin) return callback(null, true);
+        const normalized = origin.replace(/\/+$/, '');
+        if (allowedOrigins.includes(normalized)) {
+          return callback(null, true);
+        }
+        return callback(new Error(`Origin not allowed by CORS: ${origin}`));
+      },
+      methods: ['POST', 'GET', 'OPTIONS'],
+      allowedHeaders: ['Content-Type'],
+    })
+  );
 
   app.use(express.json({ limit: '10kb' }));
 
