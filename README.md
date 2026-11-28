@@ -60,7 +60,6 @@ Backend obsługujący formularz kontaktowy znajduje się w katalogu `backend/`. 
 Aby uruchomić backend, należy otworzyć osobny terminal, przejść do katalogu `backend/` i wykonać:
 
 ```bash
-cd backend
 npm install
 npm start
 ```
